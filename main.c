@@ -17,13 +17,13 @@ struct winsize w;
 
 /* Move cursor to position */
 static inline void goToPos(int x, int y){
-  printf("\e[%d;%dH", x, y);
+  printf("\e[%d;%df", x, y);
 }
 
 /* Render each individual frame */
 void render(int arr[], int arr_len, int block_size, int moved_element){
+  goToPos(0, 0); // Go to beginning of line
   for (int i = 0; i < w.ws_row; i++) {
-    goToPos(i, 0); // Go to beginning of line
     for (int j = 0; j < arr_len; j++) {
       if (arr[j] >= w.ws_row - i){
         if (j == moved_element) {printf(ANSI_COLOR_RED);}
@@ -37,6 +37,7 @@ void render(int arr[], int arr_len, int block_size, int moved_element){
         }
       }
     }
+    printf("\n");
   }
   fflush(stdout); // Display frame immediately
 }
@@ -72,7 +73,7 @@ int main(int argc, char **argv){
   signal(SIGINT, handleExit);
 
   while (1){
-    // usleep(1000000);
+    usleep(100000);
     render(arr, arr_len, block_size, 10);
   }
   return 0;
