@@ -22,6 +22,7 @@ struct WinSize setupRender(){
 }
 
 void handleExit(int signum) {
+  getch();
   clear();
   endwin();
   exit(0);

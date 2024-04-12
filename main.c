@@ -30,7 +30,7 @@ int main(int argc, char **argv){
   // Set up signal handler for Ctrl+C
   signal(SIGINT, handleExit);
   
-  bogosort(arr, ws.cols, ws.rows);
+  bubbleSort(arr, ws.cols, ws.rows);
 
   handleExit(0);
 
