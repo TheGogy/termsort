@@ -35,3 +35,30 @@ void bubbleSort(int arr[], int cols, int rows) {
     }
   }
 }
+
+int partition(int arr[], int low, int high, int cols, int rows) {
+    int pivot = arr[high]; // Pivot element
+    int i = (low - 1); // Index of smaller element
+
+    for (int j = low; j <= high - 1; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(&arr[i], &arr[j]);
+            render(arr, j, cols, rows);
+            usleep(SLEEP);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    render(arr, high, cols, rows);
+    usleep(SLEEP);
+    return (i + 1);
+}
+
+void quickSort(int arr[], int low, int high, int cols, int rows) {
+    if (low < high) {
+        int pi = partition(arr, low, high, cols, rows);
+
+        quickSort(arr, low, pi - 1, cols, rows);
+        quickSort(arr, pi + 1, high, cols, rows);
+    }
+}

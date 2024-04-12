@@ -10,7 +10,6 @@
 
 struct winsize w;
 
-
 int main(int argc, char **argv){
 
 
@@ -30,7 +29,9 @@ int main(int argc, char **argv){
   // Set up signal handler for Ctrl+C
   signal(SIGINT, handleExit);
   
-  bubbleSort(arr, ws.cols, ws.rows);
+  // bogoSort(arr, ws.cols, ws.rows);
+  // bubbleSort(arr, ws.cols, ws.rows);
+  quickSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
 
   handleExit(0);
 
