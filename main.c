@@ -1,6 +1,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <signal.h>
+#include <ncurses.h>
 
 #include "arrayutils.h"
 #include "renderer.h"
@@ -32,6 +33,7 @@ int main(int argc, char **argv){
   // bogoSort(arr, ws.cols, ws.rows);
   // bubbleSort(arr, ws.cols, ws.rows);
   quickSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
+  getch();
 
   handleExit(0);
 

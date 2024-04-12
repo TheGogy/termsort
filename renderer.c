@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <locale.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "renderer.h"
 
@@ -22,9 +23,9 @@ struct WinSize setupRender(){
 }
 
 void handleExit(int signum) {
-  getch();
   clear();
   endwin();
+  printf("Goodbye!\n");
   exit(0);
 }
 
