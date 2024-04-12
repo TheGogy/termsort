@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <signal.h>
+#include "renderer.h"
 
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #define ANSI_COLOR_RED     "\x1b[31m"
@@ -15,33 +16,6 @@
 
 struct winsize w;
 
-/* Move cursor to position */
-static inline void goToPos(int x, int y){
-  printf("\e[%d;%df", x, y);
-}
-
-/* Render each individual frame */
-void render(int arr[], int arr_len, int block_size, int moved_element){
-  goToPos(0, 0); // Go to beginning of line
-  for (int i = 0; i < w.ws_row; i++) {
-    for (int j = 0; j < arr_len; j++) {
-      if (arr[j] >= w.ws_row - i){
-        if (j == moved_element) {printf(ANSI_COLOR_RED);}
-        for (int k = 0; k < block_size; k++) {
-          printf("█");
-        }
-        if (j == moved_element) {printf(ANSI_COLOR_RESET);}
-      } else {
-        for (int k = 0; k < block_size; k++) {
-          printf(" ");
-        }
-      }
-    }
-    printf("\n");
-  }
-  fflush(stdout); // Display frame immediately
-}
-
 void handleExit(int signum) {
   printf("\e[1;1H\e[2J"); // Clear screen
   printf(ANSI_COLOR_MAGENTA "Goodbye!\n" ANSI_COLOR_RESET);
@@ -51,6 +25,8 @@ void handleExit(int signum) {
 
 int main(int argc, char **argv){
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+  // Disable buffering on stdout
+  setvbuf(stdout, NULL, _IONBF, 0);
 
   // Initialise arrays
   int arr_len;
@@ -71,10 +47,10 @@ int main(int argc, char **argv){
 
   // Set up signal handler for Ctrl+C
   signal(SIGINT, handleExit);
-
+  int moved_element = 10;
   while (1){
     usleep(100000);
-    render(arr, arr_len, block_size, 10);
+    render(arr, arr_len, block_size, moved_element, w.ws_row, w.ws_col);
   }
   return 0;
 }
