@@ -4,6 +4,7 @@
 
 #include "arrayutils.h"
 #include "renderer.h"
+#include "sorting.h"
 
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
@@ -12,8 +13,6 @@ struct winsize w;
 
 int main(int argc, char **argv){
 
-  // Set up signal handler for Ctrl+C
-  signal(SIGINT, handleExit);
 
   struct WinSize ws = setupRender();
 
@@ -28,13 +27,11 @@ int main(int argc, char **argv){
   }
   shuffleArray(arr, ws.cols);
 
-  int moved_element = 10;
-  int color = 1;
-  while (1){
-    render(arr, ws.cols, moved_element, color, ws);
-    usleep(250000); // Just works
-  }
+  // Set up signal handler for Ctrl+C
+  signal(SIGINT, handleExit);
   
+  bogosort(arr, ws.cols, ws.rows);
+
   handleExit(0);
 
   return 0;

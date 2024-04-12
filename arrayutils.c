@@ -8,6 +8,18 @@ void swap(int* a, int* b){
     *a = *b;
     *b = temp;
 }
+
+int isSorted(int arr[], int arr_len) {
+  /* Returns index of the first element out of order
+   * */
+  for (int i = 0; i < arr_len-1; i++) {
+    if (arr[i] > arr[i+1]) {
+      return i;
+    }
+  }
+  return -1;
+}
+
 void shuffleArray(int arr[], int arr_len) {
   srand(time(NULL)); // Seed the random number generator
   for (int i = arr_len - 1; i > 0; i--) {

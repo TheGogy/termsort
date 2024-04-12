@@ -6,5 +6,5 @@ struct WinSize {
 
 struct WinSize setupRender();
 void handleExit(int signum);
-void render(int arr[], int arr_len, int moved_element, int color, struct WinSize ws);
+void render(int arr[], int moved_element, int cols, int rows);
 

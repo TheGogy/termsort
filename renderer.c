@@ -28,13 +28,13 @@ void handleExit(int signum) {
 }
 
 /* Render each individual frame */
-void render(int arr[], int arr_len, int moved_element, int color, struct WinSize ws){
+void render(int arr[], int moved_element, int cols, int rows){
   clear(); // Clear screen
   int bar_length;
-  for (int i = 0; i < arr_len; i++) {
+  for (int i = 0; i < cols; i++) {
     bar_length = arr[i];
     if (i == moved_element){ attron(COLOR_PAIR(1)); }
-    mvvline(ws.rows - bar_length, i, ACS_BOARD, bar_length);
+    mvvline(rows - bar_length, i, ACS_BOARD, bar_length);
     if (i == moved_element){ attroff(COLOR_PAIR(1)); }
   }
 
