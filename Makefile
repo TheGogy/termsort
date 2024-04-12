@@ -1,7 +1,7 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Wpedantic -std=c99
+CFLAGS = -Wall -Wextra -Wpedantic -std=c99 -lncursesw
 
-SRCS = main.c renderer.c
+SRCS = main.c renderer.c arrayutils.c sorting.c
 OBJS = $(SRCS:.c=.o)
 EXEC = termsort
 
