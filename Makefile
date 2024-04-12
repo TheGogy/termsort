@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
+CFLAGS = -Wall -Wextra -Wpedantic -std=c99
 
 SRCS = main.c renderer.c
 OBJS = $(SRCS:.c=.o)
@@ -10,10 +10,10 @@ EXEC = termsort
 all: $(EXEC)
 
 $(EXEC): $(OBJS)
-    $(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $(OBJS) -o $(EXEC)
 
 %.o: %.c
-    $(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-    rm -f $(OBJS) $(EXEC)
+	rm -f $(OBJS) $(EXEC)

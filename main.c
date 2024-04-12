@@ -6,22 +6,24 @@
 #include "renderer.h"
 
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_BLUE    "\x1b[34m"
-#define ANSI_COLOR_MAGENTA "\x1b[35m"
-#define ANSI_COLOR_CYAN    "\x1b[36m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
 
 struct winsize w;
 
-void handleExit(int signum) {
-  printf("\e[1;1H\e[2J"); // Clear screen
-  printf(ANSI_COLOR_MAGENTA "Goodbye!\n" ANSI_COLOR_RESET);
-  exit(0);
+void shuffleArray(int arr[], int arr_len) {
+  for (int i = arr_len - 1; i > 0; i--) {
+    int j = rand() % (i + 1);
+    // Swap arr[i] and arr[j]
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
 }
 
+void handleExit(int signum) {
+  printf("\033[1;1H\033[2J"); // Clear screen
+  printf(ANSI_COLOR_MAGENTA "Goodbye! (SIGNUM %d)\n" ANSI_COLOR_RESET, signum);
+  exit(0);
+}
 
 int main(int argc, char **argv){
   ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
@@ -44,13 +46,16 @@ int main(int argc, char **argv){
   for (int i = 0; i < arr_len; i++) {
     arr[i] = i+1;
   }
-
+  shuffleArray(arr, arr_len);
+  
   // Set up signal handler for Ctrl+C
   signal(SIGINT, handleExit);
+  
   int moved_element = 10;
   while (1){
-    usleep(100000);
-    render(arr, arr_len, block_size, moved_element, w.ws_row, w.ws_col);
+    usleep((100000)); // Just works
+    printf("\033[1;1H\033[2J"); // Clear screen
+    render(arr, arr_len, block_size, moved_element, w.ws_row);
   }
   return 0;
 }
