@@ -150,22 +150,22 @@ void mergeSort(int arr[], int low, int high, int cols, int rows) {
 }
 
 void heapify(int arr[], int i, int cols, int rows) {
-    int largest = i;
-    int l = 2 * i + 1;
-    int r = 2 * i + 2;
+  int largest = i;
+  int l = 2 * i + 1;
+  int r = 2 * i + 2;
 
-    if (l < cols && arr[l] > arr[largest]) {
-        largest = l;
-    }
+  if (l < cols && arr[l] > arr[largest]) {
+    largest = l;
+  }
 
-    if (r < cols && arr[r] > arr[largest]) {
-        largest = r;
-    }
+  if (r < cols && arr[r] > arr[largest]) {
+    largest = r;
+  }
 
-    if (largest != i) {
-        swap(&arr[i], &arr[largest]);
-        heapify(arr, largest, cols, rows);
-    }
+  if (largest != i) {
+    swap(&arr[i], &arr[largest]);
+    heapify(arr, largest, cols, rows);
+  }
 }
 
 void heapSort(int arr[], int cols, int rows){
@@ -201,30 +201,47 @@ void gnomeSort(int arr[], int cols, int rows){
 }
 
 void cocktailSort(int arr[], int cols, int rows) {
-    int start = 0;
-    int end = cols - 1;
-    int swapped = 1;
+  int start = 0;
+  int end = cols - 1;
+  int swapped = 1;
 
-    while (swapped) {
-        swapped = 0;
-        for (int i = start; i < end; i++) {
-            if (arr[i] > arr[i + 1]) {
-                swap(&arr[i], &arr[i + 1]);
-                render(arr, i, cols, rows);
-                usleep(SLEEP);
-                swapped = 1;
-            }
+  while (swapped) {
+    swapped = 0;
+    for (int i = start; i < end; i++) {
+      if (arr[i] > arr[i + 1]) {
+        swap(&arr[i], &arr[i + 1]);
+        render(arr, i, cols, rows);
+        usleep(SLEEP);
+        swapped = 1;
+      }
+    }
+    if (!swapped) break;
+    end--;
+    for (int i = end - 1; i >= start; i--) {
+      if (arr[i] > arr[i + 1]) {
+        swap(&arr[i], &arr[i + 1]);
+        render(arr, i, cols, rows);
+        usleep(SLEEP);
+        swapped = 1;
+      }
+    }
+    start++;
+  }
+}
+
+void insertionSort(int arr[], int cols, int rows) {
+    int i, j;
+    for (i = 1; i < cols; i++) {
+        int key = arr[i];
+        j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
         }
-        if (!swapped) break;
-        end--;
-        for (int i = end - 1; i >= start; i--) {
-            if (arr[i] > arr[i + 1]) {
-                swap(&arr[i], &arr[i + 1]);
-                render(arr, i, cols, rows);
-                usleep(SLEEP);
-                swapped = 1;
-            }
-        }
-        start++;
+        arr[j + 1] = key;
+
+        render(arr, i, cols, rows);
+        usleep(SLEEP);
     }
 }
+

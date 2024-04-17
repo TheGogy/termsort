@@ -22,8 +22,9 @@ const char *algorithms[] = {
   "heapsort",
   "gnomesort",
   "cocktailsort",
+  "insertionsort",
 };
-const int n_algorithms = 8;
+const int n_algorithms = 9;
 struct winsize w;
 
 int main(int argc, char **argv){
@@ -49,7 +50,7 @@ int main(int argc, char **argv){
     }
   }
   if (algorithm == -1) {
-    printf("\"%s\" is not a known sorting algorithm. To list available algorithms, use:\n\n%s list\n", argv[1], argv[0]);
+    printf("\"%s\" is not a known sorting algorithm. To list available algorithms, use:\n\n%s list\n\n", argv[1], argv[0]);
     return EXIT_FAILURE;
   }
 
@@ -85,6 +86,8 @@ int main(int argc, char **argv){
     gnomeSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 7) {
     cocktailSort(arr, ws.cols, ws.rows);
+  } else if (algorithm == 8) {
+    insertionSort(arr, ws.cols, ws.rows);
   }
 
   getch(); // Wait for user input before exiting
