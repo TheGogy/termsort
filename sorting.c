@@ -144,3 +144,37 @@ void mergeSort(int arr[], int low, int high, int cols, int rows) {
   mergeSort(arr, mid + 1, high, cols, rows);
   merge(arr, low, mid, high, cols, rows);
 }
+
+void heapify(int arr[], int i, int cols, int rows) {
+    int largest = i;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
+
+    if (l < cols && arr[l] > arr[largest]) {
+        largest = l;
+    }
+
+    if (r < cols && arr[r] > arr[largest]) {
+        largest = r;
+    }
+
+    if (largest != i) {
+        swap(&arr[i], &arr[largest]);
+        heapify(arr, largest, cols, rows);
+    }
+}
+
+void heapSort(int arr[], int cols, int rows){
+  for (int i = cols / 2 - 1; i >= 0; i--) {
+    heapify(arr, i, cols, rows);
+  }
+  for (int i = cols - 1; i > 0; i--) {
+    swap(&arr[0], &arr[i]);
+    /* Call render twice; otherwise this runs too quickly */
+    render(arr, 0, cols, rows);
+    usleep(SLEEP);
+    render(arr, i, cols, rows);
+    usleep(SLEEP);
+    heapify(arr, 0, i, rows);
+  }
+}
