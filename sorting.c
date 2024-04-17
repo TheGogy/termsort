@@ -8,9 +8,11 @@
  * quicksort
  * shellsort
  * mergesort
+ * heapsort
+ * gnomesort
+ * cocktailsort
  */
-#include <stdlib.h>
-#include <time.h>
+
 
 #include "sorting.h"
 #include "arrayutils.h"
@@ -196,4 +198,33 @@ void gnomeSort(int arr[], int cols, int rows){
       i--;
     }
   }
+}
+
+void cocktailSort(int arr[], int cols, int rows) {
+    int start = 0;
+    int end = cols - 1;
+    int swapped = 1;
+
+    while (swapped) {
+        swapped = 0;
+        for (int i = start; i < end; i++) {
+            if (arr[i] > arr[i + 1]) {
+                swap(&arr[i], &arr[i + 1]);
+                render(arr, i, cols, rows);
+                usleep(SLEEP);
+                swapped = 1;
+            }
+        }
+        if (!swapped) break;
+        end--;
+        for (int i = end - 1; i >= start; i--) {
+            if (arr[i] > arr[i + 1]) {
+                swap(&arr[i], &arr[i + 1]);
+                render(arr, i, cols, rows);
+                usleep(SLEEP);
+                swapped = 1;
+            }
+        }
+        start++;
+    }
 }
