@@ -13,8 +13,10 @@
 
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
-const char *algorithms[] = {"bogosort", "bubblesort", "quicksort", "shellsort"};
-const int n_algorithms = 4;
+const char *algorithms[] = {
+  "bogosort", "bubblesort", "quicksort", "shellsort", "mergesort"
+};
+const int n_algorithms = 5;
 struct winsize w;
 
 int main(int argc, char **argv){
@@ -68,6 +70,8 @@ int main(int argc, char **argv){
     quickSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
   } else if (algorithm == 3) {
     shellSort(arr, ws.cols, ws.rows);
+  } else if (algorithm == 4) {
+    mergeSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
   }
 
   getch(); // Wait for user input before exiting
