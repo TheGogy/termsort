@@ -20,8 +20,9 @@ const char *algorithms[] = {
   "shellsort", 
   "mergesort", 
   "heapsort",
+  "gnomesort",
 };
-const int n_algorithms = 6;
+const int n_algorithms = 7;
 struct winsize w;
 
 int main(int argc, char **argv){
@@ -79,6 +80,8 @@ int main(int argc, char **argv){
     mergeSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
   } else if (algorithm == 5) {
     heapSort(arr, ws.cols, ws.rows);
+  } else if (algorithm == 6) {
+    gnomeSort(arr, ws.cols, ws.rows);
   }
 
   getch(); // Wait for user input before exiting

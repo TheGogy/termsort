@@ -9,6 +9,8 @@
  * shellsort
  * mergesort
  */
+#include <stdlib.h>
+#include <time.h>
 
 #include "sorting.h"
 #include "arrayutils.h"
@@ -176,5 +178,22 @@ void heapSort(int arr[], int cols, int rows){
     render(arr, i, cols, rows);
     usleep(SLEEP);
     heapify(arr, 0, i, rows);
+  }
+}
+
+void gnomeSort(int arr[], int cols, int rows){
+  int i = 0;
+  while (i < cols) {
+    if (i == 0) {
+      i++;
+    }
+    if (arr[i] >= arr[i-1]) {
+      i++;
+    } else {
+      swap(&arr[i], &arr[i-1]);
+      render(arr, i, cols, rows);
+      usleep(SLEEP);
+      i--;
+    }
   }
 }
