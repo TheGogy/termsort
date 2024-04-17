@@ -23,8 +23,9 @@ const char *algorithms[] = {
   "gnomesort",
   "cocktailsort",
   "insertionsort",
+  "selectionsort",
 };
-const int n_algorithms = 9;
+const int n_algorithms = 10;
 struct winsize w;
 
 int main(int argc, char **argv){
@@ -88,6 +89,8 @@ int main(int argc, char **argv){
     cocktailSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 8) {
     insertionSort(arr, ws.cols, ws.rows);
+  } else if (algorithm == 9) {
+    selectionSort(arr, ws.cols, ws.rows);
   }
 
   getch(); // Wait for user input before exiting

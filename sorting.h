@@ -7,3 +7,4 @@ void heapSort(int arr[], int cols, int rows);
 void gnomeSort(int arr[], int cols, int rows);
 void cocktailSort(int arr[], int cols, int rows);
 void insertionSort(int arr[], int cols, int rows);
+void selectionSort(int arr[], int cols, int rows);

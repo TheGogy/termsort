@@ -245,3 +245,20 @@ void insertionSort(int arr[], int cols, int rows) {
     }
 }
 
+void selectionSort(int arr[], int cols, int rows) {
+    int i, j, min_idx;
+  
+    for (i = 0; i < cols - 1; i++) {
+        min_idx = i;
+        for (j = i + 1; j < cols; j++) {
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j;
+            }
+        }
+        if (min_idx != i) {
+            swap(&arr[min_idx], &arr[i]);
+            render(arr, i, cols, rows);
+            usleep(SLEEP);
+        }
+    }
+}
