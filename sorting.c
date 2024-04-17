@@ -262,3 +262,26 @@ void selectionSort(int arr[], int cols, int rows) {
         }
     }
 }
+
+void oddevenSort(int arr[], int cols, int rows) {
+  int sorted = 0;
+  while (!sorted) {
+    sorted = 1;
+    for (int i = 1; i < cols - 1; i += 2) {
+      if (arr[i] > arr[i+1]) {
+        swap(&arr[i], &arr[i+1]);
+        sorted = 0;
+        render(arr, i, cols, rows);
+        usleep(SLEEP);
+      }
+    }
+    for (int i = 0; i < cols - 1; i += 2) {
+      if (arr[i] > arr[i+1]) {
+        swap(&arr[i], &arr[i+1]);
+        sorted = 0;
+        render(arr, i, cols, rows);
+        usleep(SLEEP);
+      }
+    }
+  }
+}
