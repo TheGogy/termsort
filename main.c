@@ -114,6 +114,9 @@ int main(int argc, char **argv){
   } else if (algorithm == 14) {
     c = stoogeSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
   }
+
+  renderSorted(arr, ws.cols, ws.rows);
+
   // Display the results in the top left
   WINDOW *results = newwin(7, 25, 0, 0);
   wattron(results, A_BOLD);

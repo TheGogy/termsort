@@ -7,4 +7,5 @@ struct WinSize {
 struct WinSize setupRender();
 void handleExit(int signum);
 void render(int arr[], int moved_element, int cols, int rows);
+void renderSorted(int arr[], int cols, int rows);
 
