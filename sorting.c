@@ -233,37 +233,37 @@ void cocktailSort(int arr[], int cols, int rows) {
 }
 
 void insertionSort(int arr[], int cols, int rows) {
-    int i, j;
-    for (i = 1; i < cols; i++) {
-        int key = arr[i];
-        j = i - 1;
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j = j - 1;
-        }
-        arr[j + 1] = key;
-
-        render(arr, i, cols, rows);
-        usleep(SLEEP);
+  int i, j;
+  for (i = 1; i < cols; i++) {
+    int key = arr[i];
+    j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j = j - 1;
     }
+    arr[j + 1] = key;
+
+    render(arr, i, cols, rows);
+    usleep(SLEEP);
+  }
 }
 
 void selectionSort(int arr[], int cols, int rows) {
-    int i, j, min_idx;
-  
-    for (i = 0; i < cols - 1; i++) {
-        min_idx = i;
-        for (j = i + 1; j < cols; j++) {
-            if (arr[j] < arr[min_idx]) {
-                min_idx = j;
-            }
-        }
-        if (min_idx != i) {
-            swap(&arr[min_idx], &arr[i]);
-            render(arr, i, cols, rows);
-            usleep(SLEEP);
-        }
+  int i, j, min_idx;
+
+  for (i = 0; i < cols - 1; i++) {
+    min_idx = i;
+    for (j = i + 1; j < cols; j++) {
+      if (arr[j] < arr[min_idx]) {
+        min_idx = j;
+      }
     }
+    if (min_idx != i) {
+      swap(&arr[min_idx], &arr[i]);
+      render(arr, i, cols, rows);
+      usleep(SLEEP);
+    }
+  }
 }
 
 void oddevenSort(int arr[], int cols, int rows) {
@@ -313,6 +313,66 @@ void pancakeSort(int arr[], int cols, int rows) {
       flip(arr, currSize - 1, cols, rows);
     }
     currSize--;
+  }
+}
+
+void pigeonholeSort(int arr[], int cols, int rows) {
+  int min = arr[0], max = arr[0];
+  int i, j, range, index;
+
+  for (i = 1; i < cols; i++) {
+    if (arr[i] < min) {
+      min = arr[i];
+    }
+    if (arr[i] > max) {
+      max = arr[i];
+    }
+  }
+  range = max - min + 1;
+
+  int holes[range];
+  for (i = 0; i < range; i++) {
+    holes[i] = 0;
+  }
+
+  for (i = 0; i < cols; i++) {
+    holes[arr[i] - min]++;
+  }
+
+  index = 0;
+  for (i = 0; i < range; i++) {
+    while (holes[i] > 0) {
+      arr[index++] = i + min;
+      render(arr, index, cols, rows);
+      usleep(SLEEP);
+      holes[i]--;
+    }
+  }
+}
+
+int getNextGap(int gap){
+  // Shrink by shrink factor
+  gap = (gap * 10) / 13;
+  if (gap < 1){
+    return 1;
+  }
+  return gap;
+}
+
+void combSort(int arr[], int cols, int rows) {
+  int gap = cols;
+  int swapped = 1;
+  while (gap != 1 || swapped) {
+    gap = getNextGap(gap);
+    swapped = 0;
+    for (int i = 0; i < cols - gap; i++) {
+      if (arr[i] > arr[i+gap]) {
+        swap(&arr[i], &arr[i+gap]);
+        render(arr, i, cols, rows);
+        usleep(SLEEP);
+        swapped = 1;
+      }
+    }
   }
 }
 

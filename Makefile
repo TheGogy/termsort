@@ -3,9 +3,10 @@ CFLAGS = -Wall -Wextra -Wpedantic -std=c99 -lncursesw
 
 SRCS = main.c renderer.c arrayutils.c sorting.c
 OBJS = $(SRCS:.c=.o)
+INSTALL_DIR = $(HOME)/.local/bin
 EXEC = termsort
 
-.PHONY: all clean
+.PHONY: all clean install uninstall
 
 all: $(EXEC)
 
@@ -17,3 +18,9 @@ $(EXEC): $(OBJS)
 
 clean:
 	rm -f $(OBJS) $(EXEC)
+
+install: $(EXEC)
+	cp $(EXEC) $(INSTALL_DIR)
+
+uninstall:
+	rm -f $(INSTALL_DIR)/$(EXEC)
