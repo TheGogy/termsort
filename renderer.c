@@ -2,6 +2,7 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #include "renderer.h"
 
@@ -26,7 +27,11 @@ struct WinSize setupRender(){
 void handleExit(int signum) {
   clear();
   endwin();
-  printf("Goodbye!\n");
+  if (signum == 0){
+    printf("Goodbye!\n");
+  } else {
+    printf("Exited with code %d\n", signum);
+  }
   exit(0);
 }
 
@@ -40,6 +45,12 @@ void render(int arr[], int moved_element, int cols, int rows){
     mvvline(rows - bar_length, i, ACS_BOARD, bar_length);
     if (i == moved_element){ attroff(COLOR_PAIR(1)); }
   }
-
   refresh(); // Update screen
+
+  // Sleep for 15 ms
+  struct timespec delay;
+  delay.tv_sec = 0;
+  delay.tv_nsec = 15000000;
+  nanosleep(&delay, NULL);
+
 }

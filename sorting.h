@@ -7,7 +7,7 @@ struct Counter {
 
 struct Counter bogoSort(int arr[], int cols, int rows);
 struct Counter bubbleSort(int arr[], int cols, int rows);
-struct Counter quickSort(int arr[], int low, int high, int cols, int rows);
+struct Counter quickSortWrapper(int arr[], int cols, int rows);
 struct Counter shellSort(int arr[], int cols, int rows);
 struct Counter mergeSort(int arr[], int low, int high, int cols, int rows);
 struct Counter heapSort(int arr[], int cols, int rows);

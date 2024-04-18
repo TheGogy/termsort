@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Wpedantic -std=c99 -lncursesw
+CFLAGS = -Wall -Wextra -Wpedantic -std=gnu99 -lncursesw
 
 SRCS = main.c renderer.c arrayutils.c sorting.c
 OBJS = $(SRCS:.c=.o)

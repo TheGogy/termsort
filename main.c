@@ -35,13 +35,17 @@ struct winsize w;
 
 int main(int argc, char **argv){
 
-  if (argc != 2) {
-    printf("Usage: %s <sorting algorithm>\n", argv[0]);
+  if (argc != 2 || strcmp("help", argv[1]) == 0) {
+    printf(
+      "Usage:\n"
+      "%s <sorting algorithm>   Show sorting algorithm\n"
+      "%s list                  List available sorting algorithms\n"
+      "%s help                  Print this help menu\n",
+      argv[0], argv[0], argv[0]);
     return EXIT_FAILURE;
   }
 
   if (strcmp("list", argv[1]) == 0) {
-    printf("Possible sorting algorithms: \n");
     for (int i = 0; i < n_algorithms; i++) {
       printf("%s\n", algorithms[i]);
     }
@@ -84,7 +88,7 @@ int main(int argc, char **argv){
   } else if (algorithm == 1) {
     c = bubbleSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 2) {
-    c = quickSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
+    c = quickSortWrapper(arr, ws.cols, ws.rows);
   } else if (algorithm == 3) {
     c = shellSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 4) {
