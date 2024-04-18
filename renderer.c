@@ -39,11 +39,9 @@ void handleExit(int signum) {
 /* Render each individual frame */
 void render(int arr[], int moved_element, int cols, int rows){
   clear(); // Clear screen
-  int bar_length;
   for (int i = 0; i < cols; i++) {
-    bar_length = arr[i];
     if (i == moved_element){ attron(COLOR_PAIR(1)); }
-    mvvline(rows - bar_length, i, ACS_BOARD, bar_length);
+    mvvline(rows - arr[i], i, ACS_BOARD, arr[i]);
     if (i == moved_element){ attroff(COLOR_PAIR(1)); }
   }
   refresh(); // Update screen
@@ -61,15 +59,10 @@ void renderSorted(int arr[], int cols, int rows) {
   delay.tv_nsec = 15000000;
 
   for (int i = 0; i < cols; i++) {
-    clear(); // Clear screen
-    int bar_length;
     attron(COLOR_PAIR(2));
-    for (int j = 0; j < cols; j++) {
-      bar_length = arr[j];
-      mvvline(rows - bar_length, j, ACS_BOARD, bar_length);
-      if (i == j){ attroff(COLOR_PAIR(2)); }
-    }
-    refresh(); // Update screen
+    mvvline(rows - arr[i], i, ACS_BOARD, arr[i]);
+    attroff(COLOR_PAIR(2));
+    refresh();
     nanosleep(&delay, NULL);
   }
 }
