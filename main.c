@@ -75,38 +75,54 @@ int main(int argc, char **argv){
 
   // Set up signal handler for Ctrl+C
   signal(SIGINT, handleExit);
-  
+
+  // Initialise counter
+  struct Counter c;
+
   if (algorithm == 0){
-    bogoSort(arr, ws.cols, ws.rows);
+    c = bogoSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 1) {
-    bubbleSort(arr, ws.cols, ws.rows);
+    c = bubbleSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 2) {
-    quickSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
+    c = quickSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
   } else if (algorithm == 3) {
-    shellSort(arr, ws.cols, ws.rows);
+    c = shellSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 4) {
-    mergeSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
+    c = mergeSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
   } else if (algorithm == 5) {
-    heapSort(arr, ws.cols, ws.rows);
+    c = heapSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 6) {
-    gnomeSort(arr, ws.cols, ws.rows);
+    c = gnomeSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 7) {
-    cocktailSort(arr, ws.cols, ws.rows);
+    c = cocktailSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 8) {
-    insertionSort(arr, ws.cols, ws.rows);
+    c = insertionSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 9) {
-    selectionSort(arr, ws.cols, ws.rows);
+    c = selectionSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 10) {
-    oddevenSort(arr, ws.cols, ws.rows);
+    c = oddevenSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 11) {
-    pancakeSort(arr, ws.cols, ws.rows);
+    c = pancakeSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 12) {
-    pigeonholeSort(arr, ws.cols, ws.rows);
+    c = pigeonholeSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 13) {
-    combSort(arr, ws.cols, ws.rows);
+    c = combSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 14) {
-    stoogeSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
+    c = stoogeSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
   }
+  // Display the results in the top left
+  WINDOW *results = newwin(7, 25, 0, 0);
+  wattron(results, A_BOLD);
+  mvwprintw(results, 1, 1, "%s", algorithms[algorithm]);
+  wattroff(results, A_BOLD);
+  mvwprintw(results, 2, 1, "Total elements:   %d\n", ws.cols);
+  mvwprintw(results, 3, 1, "Unique elements:  %d\n", ws.rows);
+  mvwprintw(results, 4, 1, "Array indexes:    %d\n", c.indexes);
+  mvwprintw(results, 5, 1, "Array moves:      %d\n", c.moves);
+  box(results, 0, 0);
+  move(ws.cols, ws.rows) ;
+
+  wrefresh(results);
 
   getch(); // Wait for user input before exiting
   handleExit(0);

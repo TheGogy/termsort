@@ -10,6 +10,7 @@ struct WinSize setupRender(){
   initscr();            // Initialise ncurses
   cbreak();             // Disable line buffering
   noecho();             // Disable echoing user input
+  curs_set(0);          // Hide cursor
   use_default_colors();
   start_color();        // Initialise colour rendering
   init_pair(1, 1, -1);

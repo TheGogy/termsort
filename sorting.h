@@ -1,15 +1,22 @@
-void bogoSort(int arr[], int cols, int rows);
-void bubbleSort(int arr[], int cols, int rows);
-void quickSort(int arr[], int low, int high, int cols, int rows);
-void shellSort(int arr[], int cols, int rows);
-void mergeSort(int arr[], int low, int high, int cols, int rows);
-void heapSort(int arr[], int cols, int rows);
-void gnomeSort(int arr[], int cols, int rows);
-void cocktailSort(int arr[], int cols, int rows);
-void insertionSort(int arr[], int cols, int rows);
-void selectionSort(int arr[], int cols, int rows);
-void oddevenSort(int arr[], int cols, int rows);
-void pancakeSort(int arr[], int cols, int rows);
-void pigeonholeSort(int arr[], int cols, int rows);
-void combSort(int arr[], int cols, int rows);
-void stoogeSort(int arr[], int low, int high, int cols, int rows);
+
+struct Counter {
+  int indexes;
+  int moves;
+};
+
+
+struct Counter bogoSort(int arr[], int cols, int rows);
+struct Counter bubbleSort(int arr[], int cols, int rows);
+struct Counter quickSort(int arr[], int low, int high, int cols, int rows);
+struct Counter shellSort(int arr[], int cols, int rows);
+struct Counter mergeSort(int arr[], int low, int high, int cols, int rows);
+struct Counter heapSort(int arr[], int cols, int rows);
+struct Counter gnomeSort(int arr[], int cols, int rows);
+struct Counter cocktailSort(int arr[], int cols, int rows);
+struct Counter insertionSort(int arr[], int cols, int rows);
+struct Counter selectionSort(int arr[], int cols, int rows);
+struct Counter oddevenSort(int arr[], int cols, int rows);
+struct Counter pancakeSort(int arr[], int cols, int rows);
+struct Counter pigeonholeSort(int arr[], int cols, int rows);
+struct Counter combSort(int arr[], int cols, int rows);
+struct Counter stoogeSort(int arr[], int low, int high, int cols, int rows);
