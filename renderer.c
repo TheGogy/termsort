@@ -52,7 +52,7 @@ void render(int arr[], int moved_element, int cols, int rows){
 }
 
 void renderSorted(int arr[], int cols, int rows) {
-  struct timespec delay = {.tv_sec = 0, .tv_nsec = 15000000};
+  struct timespec delay = {.tv_sec = 0, .tv_nsec = 7500000};
 
   for (int i = 0; i < cols; i++) {
     attron(COLOR_PAIR(2));
