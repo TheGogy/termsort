@@ -47,16 +47,12 @@ void render(int arr[], int moved_element, int cols, int rows){
   refresh(); // Update screen
 
   // Sleep for 15 ms
-  struct timespec delay;
-  delay.tv_sec = 0;
-  delay.tv_nsec = 15000000;
+  struct timespec delay = {.tv_sec = 0, .tv_nsec = 15000000};
   nanosleep(&delay, NULL);
 }
 
 void renderSorted(int arr[], int cols, int rows) {
-  struct timespec delay;
-  delay.tv_sec = 0;
-  delay.tv_nsec = 15000000;
+  struct timespec delay = {.tv_sec = 0, .tv_nsec = 15000000};
 
   for (int i = 0; i < cols; i++) {
     attron(COLOR_PAIR(2));

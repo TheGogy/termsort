@@ -24,9 +24,7 @@
 #define SLEEP 15000
 
 struct Counter bogoSort(int arr[], int cols, int rows) {
-  struct Counter c;
-  c.indexes = 0;
-  c.moves= 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   int moved_element;
   while(!isSorted(arr, cols)) {
     moved_element = isSorted(arr, cols);
@@ -39,9 +37,7 @@ struct Counter bogoSort(int arr[], int cols, int rows) {
 }
 
 struct Counter bubbleSort(int arr[], int cols, int rows) {
-  struct Counter c;
-  c.indexes = 0;
-  c.moves= 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   int swapped;
   for (int i = 0; i < cols - 1; i++) {
     swapped = 0;
@@ -62,7 +58,6 @@ struct Counter bubbleSort(int arr[], int cols, int rows) {
 }
 
 int partition(int arr[], int low, int high, int cols, int rows, struct Counter *c) {
-
   int pivot = arr[low]; 
   int i = low; 
   int j = high; 
@@ -97,17 +92,13 @@ void quickSort(int arr[], int low, int high, int cols, int rows, struct Counter 
 }
 
 struct Counter quickSortWrapper(int arr[], int cols, int rows) {
-  struct Counter c;
-  c.indexes = 0;
-  c.moves = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   quickSort(arr, 0, cols - 1, cols, rows, &c);
   return c;
 }
 
 struct Counter shellSort(int arr[], int cols, int rows) {
-  struct Counter c;
-  c.indexes = 0;
-  c.moves = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   for (int gap = cols/2; gap > 0; gap /= 2) {
     for (int i = gap; i < cols; i++){
       int temp = arr[i];
@@ -128,9 +119,7 @@ struct Counter shellSort(int arr[], int cols, int rows) {
 
 
 struct Counter merge(int arr[], int low, int mid, int high, int cols, int rows) {
-  struct Counter c;
-  c.indexes = 0;
-  c.moves = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   int n1 = mid - low + 1;
   int n2 = high - mid;
 
@@ -182,9 +171,7 @@ struct Counter merge(int arr[], int low, int mid, int high, int cols, int rows) 
 }
 
 struct Counter mergeSort(int arr[], int low, int high, int cols, int rows) {
-  struct Counter c;
-  c.indexes = 0;
-  c.moves = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   if (low >= high)
     return c;
 
@@ -200,9 +187,7 @@ struct Counter mergeSort(int arr[], int low, int high, int cols, int rows) {
 }
 
 struct Counter heapify(int arr[], int i, int cols, int rows) {
-  struct Counter c;
-  c.indexes = 0;
-  c.moves = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
 
   int largest = i;
   int l = 2 * i + 1;
@@ -229,9 +214,7 @@ struct Counter heapify(int arr[], int i, int cols, int rows) {
 }
 
 struct Counter heapSort(int arr[], int cols, int rows){
-  struct Counter c;
-  c.indexes = 0;
-  c.moves = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   for (int i = cols / 2 - 1; i >= 0; i--) {
     struct Counter tmp;
     tmp = heapify(arr, i, cols, rows);
@@ -251,9 +234,7 @@ struct Counter heapSort(int arr[], int cols, int rows){
 }
 
 struct Counter gnomeSort(int arr[], int cols, int rows){
-  struct Counter c;
-  c.indexes = 0;
-  c.moves = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   int i = 0;
   while (i < cols) {
     if (i == 0) {
@@ -273,9 +254,7 @@ struct Counter gnomeSort(int arr[], int cols, int rows){
 }
 
 struct Counter cocktailSort(int arr[], int cols, int rows) {
-  struct Counter c;
-  c.indexes = 0;
-  c.moves = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   int start = 0;
   int end = cols - 1;
   int swapped = 1;
@@ -308,9 +287,7 @@ struct Counter cocktailSort(int arr[], int cols, int rows) {
 }
 
 struct Counter insertionSort(int arr[], int cols, int rows) {
-  struct Counter c;
-  c.indexes = 0;
-  c.moves = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   int i, j;
   for (i = 1; i < cols; i++) {
     int key = arr[i];
@@ -331,9 +308,7 @@ struct Counter insertionSort(int arr[], int cols, int rows) {
 }
 
 struct Counter selectionSort(int arr[], int cols, int rows) {
-  struct Counter c;
-  c.indexes = 0;
-  c.moves = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   int i, j, min_idx;
 
   for (i = 0; i < cols - 1; i++) {
@@ -354,9 +329,7 @@ struct Counter selectionSort(int arr[], int cols, int rows) {
 }
 
 struct Counter oddevenSort(int arr[], int cols, int rows) {
-  struct Counter c;
-  c.indexes = 0;
-  c.moves = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   int sorted = 0;
   while (!sorted) {
     sorted = 1;
@@ -396,9 +369,7 @@ int flip(int arr[], int i, int cols, int rows) {
 }
 
 struct Counter pancakeSort(int arr[], int cols, int rows) {
-  struct Counter c;
-  c.indexes = 0;
-  c.moves = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
 
   int currSize = cols;
   while (currSize > 1) {
@@ -422,9 +393,7 @@ struct Counter pancakeSort(int arr[], int cols, int rows) {
 }
 
 struct Counter pigeonholeSort(int arr[], int cols, int rows) {
-  struct Counter c;
-  c.moves = 0;
-  c.indexes = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
   int min = arr[0], max = arr[0];
   int i, range, index;
 
@@ -472,9 +441,7 @@ int getNextGap(int gap){
 }
 
 struct Counter combSort(int arr[], int cols, int rows) {
-  struct Counter c;
-  c.moves = 0;
-  c.indexes = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
 
   int gap = cols;
   int swapped = 1;
@@ -495,9 +462,7 @@ struct Counter combSort(int arr[], int cols, int rows) {
 }
 
 struct Counter stoogeSort(int arr[], int low, int high, int cols, int rows) {
-  struct Counter c;
-  c.moves = 0;
-  c.indexes = 0;
+  struct Counter c = {.moves = 0, .indexes = 0};
 
   if (low >= high){
     return c;
