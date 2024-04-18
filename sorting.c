@@ -318,7 +318,7 @@ void pancakeSort(int arr[], int cols, int rows) {
 
 void pigeonholeSort(int arr[], int cols, int rows) {
   int min = arr[0], max = arr[0];
-  int i, j, range, index;
+  int i, range, index;
 
   for (i = 1; i < cols; i++) {
     if (arr[i] < min) {
@@ -373,6 +373,24 @@ void combSort(int arr[], int cols, int rows) {
         swapped = 1;
       }
     }
+  }
+}
+
+void stoogeSort(int arr[], int low, int high, int cols, int rows) {
+  if (low >= high){
+    return;
+  }
+  if (arr[low] > arr[high]){
+    swap(&arr[low], &arr[high]);
+    render(arr, high, cols, rows);
+    usleep(SLEEP);
+  }
+
+  if (high - low + 1 > 2) {
+    int t = (high - low + 1) / 3;
+    stoogeSort(arr, low, high-t, cols, rows);
+    stoogeSort(arr, low+t, high, cols, rows);
+    stoogeSort(arr, low, high-t, cols, rows);
   }
 }
 

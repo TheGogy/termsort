@@ -12,3 +12,4 @@ void oddevenSort(int arr[], int cols, int rows);
 void pancakeSort(int arr[], int cols, int rows);
 void pigeonholeSort(int arr[], int cols, int rows);
 void combSort(int arr[], int cols, int rows);
+void stoogeSort(int arr[], int low, int high, int cols, int rows);
