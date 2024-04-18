@@ -26,7 +26,7 @@
 struct Counter bogoSort(int arr[], int cols, int rows) {
   struct Counter c = {.moves = 0, .indexes = 0};
   int moved_element;
-  while(!isSorted(arr, cols)) {
+  while(moved_element != -1) {
     moved_element = isSorted(arr, cols);
     shuffleArray(arr, cols);
     c.moves += cols;
