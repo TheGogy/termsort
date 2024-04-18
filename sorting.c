@@ -11,6 +11,9 @@
  * heapsort
  * gnomesort
  * cocktailsort
+ * insertionsort
+ * selectionsort
+ * oddevensort
  */
 
 
@@ -285,3 +288,31 @@ void oddevenSort(int arr[], int cols, int rows) {
     }
   }
 }
+
+void flip(int arr[], int i, int cols, int rows) {
+  int start = 0;
+  while (start < i) {
+    swap(&arr[start], &arr[i]);
+    render(arr, i, cols, rows);
+    usleep(SLEEP);
+    start++;
+    i--;
+  }
+}
+
+void pancakeSort(int arr[], int cols, int rows) {
+  int currSize = cols;
+  while (currSize > 1) {
+    int maxIndex = 0;
+    for (int i = 0; i < currSize; i++) {
+      if (arr[i] > arr[maxIndex])
+        maxIndex = i;
+    }
+    if (maxIndex != currSize - 1) {
+      flip(arr, maxIndex, cols, rows);
+      flip(arr, currSize - 1, cols, rows);
+    }
+    currSize--;
+  }
+}
+

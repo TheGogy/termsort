@@ -25,8 +25,9 @@ const char *algorithms[] = {
   "insertionsort",
   "selectionsort",
   "oddevensort",
+  "pancakesort",
 };
-const int n_algorithms = 11;
+const int n_algorithms = 12;
 struct winsize w;
 
 int main(int argc, char **argv){
@@ -94,6 +95,8 @@ int main(int argc, char **argv){
     selectionSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 10) {
     oddevenSort(arr, ws.cols, ws.rows);
+  } else if (algorithm == 11) {
+    pancakeSort(arr, ws.cols, ws.rows);
   }
 
   getch(); // Wait for user input before exiting
