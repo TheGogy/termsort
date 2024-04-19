@@ -2,7 +2,7 @@
 
 This is a project to show a visual demonstration of how sorting algorithms work, based on the famous video by Timo Bingmann, https://youtu.be/kPRA0W1kECg.
 
-![demo](./demo.mp4)
+![demo](./demo.gif)
 
 ## Contents
 
