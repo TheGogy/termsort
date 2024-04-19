@@ -1,12 +1,18 @@
 # Termsort
 
-This is a project based on the famous video by Timo Bingmann, https://youtu.be/kPRA0W1kECg.
+This is a project to show a visual demonstration of how sorting algorithms work, based on the famous video by Timo Bingmann, https://youtu.be/kPRA0W1kECg.
 
-To compile it:
+![demo](./demo.mp4)
 
+## Contents
+
+* [Installation](#Install)
+
+# Installation
 ```bash
 git clone https://github.com/thegogy/termsort
 cd termsort
+rm demo.mp4
 
 make clean install
 ```
