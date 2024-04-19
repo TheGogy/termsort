@@ -62,7 +62,7 @@ int main(int argc, char **argv){
     }
   }
   if (algorithm == -1) {
-    printf("\"%s\" is not a known sorting algorithm. To list available algorithms, use:\n\n%s list\n\n", argv[1], argv[0]);
+    printf("\"%s\" is not a known sorting algorithm. Please run \033[32;1m%s help\033[0m for more info.\n", argv[1], argv[0]);
     return EXIT_FAILURE;
   }
 
