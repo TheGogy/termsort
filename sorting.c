@@ -37,7 +37,7 @@ struct Counter bogoSort(int arr[], int cols, int rows) {
     shuffleArray(arr, cols);
     c.moves += cols;
     c.indexes += cols;
-    render(arr, moved_element, cols, rows);
+    render(arr, moved_element, moved_element, cols, rows);
   }
   return c;
 }
@@ -52,7 +52,7 @@ struct Counter bubbleSort(int arr[], int cols, int rows) {
         swap(&arr[j], &arr[j+1]);
         c.moves++;
         swapped = 1;
-        render(arr, j+1, cols, rows);
+        render(arr, j, j+1, cols, rows);
       }
       c.indexes++;
     }
@@ -79,12 +79,12 @@ int partition(int arr[], int low, int high, int cols, int rows, struct Counter *
     } 
     if (i < j) { 
       swap(&arr[i], &arr[j]); 
-      render(arr, i, cols, rows);
+      render(arr, i, j, cols, rows);
       c->moves++;
     } 
   } 
   swap(&arr[low], &arr[j]); 
-  render(arr, j, cols, rows);
+  render(arr, low, j, cols, rows);
   c->moves++;
   return j; 
 } 
@@ -113,11 +113,11 @@ struct Counter shellSort(int arr[], int cols, int rows) {
       for (j = i; j >= gap && arr[j-gap] > temp; j -= gap) {
         arr[j] = arr[j-gap];
         c.moves++;
-        render(arr, j, cols, rows);
+        render(arr, j, j-gap, cols, rows);
       }
       arr[j] = temp;
       c.moves++;
-      render(arr, j, cols, rows);
+      render(arr, j, j, cols, rows);
     }  
   }
   return c;
@@ -148,28 +148,29 @@ struct Counter merge(int arr[], int low, int mid, int high, int cols, int rows) 
     c.indexes++;
     if (L[i] <= R[j]) {
       arr[k] = L[i];
+      render(arr, k, i, cols, rows);
       c.moves++;
       i++;
     } else {
       arr[k] = R[j];
+      render(arr, k, j, cols, rows);
       c.moves++;
       j++;
     }
-    render(arr, k, cols, rows);
     k++;
   }
 
   while (i < n1) {
     arr[k] = L[i];
     c.moves++;
-    render(arr, k, cols, rows);
+    render(arr, k, i, cols, rows);
     i++;
     k++;
   }
 
   while (j < n2) {
     arr[k] = R[j];
-    render(arr, k, cols, rows);
+    render(arr, k, j, cols, rows);
     j++;
     k++;
   }
@@ -229,9 +230,7 @@ struct Counter heapSort(int arr[], int cols, int rows){
   for (int i = cols - 1; i > 0; i--) {
     swap(&arr[0], &arr[i]);
     c.moves++;
-    /* Call render twice; otherwise this runs too quickly */
-    render(arr, 0, cols, rows);
-    render(arr, i, cols, rows);
+    render(arr, 0, i, cols, rows);
     struct Counter tmp;
     tmp = heapify(arr, 0, i, rows);
     c.moves += tmp.moves; c.indexes += tmp.indexes;
@@ -252,7 +251,7 @@ struct Counter gnomeSort(int arr[], int cols, int rows){
     } else {
       swap(&arr[i], &arr[i-1]);
       c.moves++;
-      render(arr, i, cols, rows);
+      render(arr, i, i-1, cols, rows);
       i--;
     }
   }
@@ -271,7 +270,7 @@ struct Counter cocktailSort(int arr[], int cols, int rows) {
       if (arr[i] > arr[i + 1]) {
         swap(&arr[i], &arr[i + 1]);
         c.moves++;
-        render(arr, i, cols, rows);
+        render(arr, i, i+1, cols, rows);
         swapped = 1;
       }
       c.indexes++;
@@ -282,7 +281,7 @@ struct Counter cocktailSort(int arr[], int cols, int rows) {
       if (arr[i] > arr[i + 1]) {
         swap(&arr[i], &arr[i + 1]);
         c.moves++;
-        render(arr, i, cols, rows);
+        render(arr, i, i+1, cols, rows);
         swapped = 1;
       }
       c.indexes++;
@@ -301,14 +300,14 @@ struct Counter insertionSort(int arr[], int cols, int rows) {
     j = i - 1;
     while (j >= 0 && arr[j] > key) {
       arr[j + 1] = arr[j];
+      render(arr, j+1, j, cols, rows);
       c.moves++;
       c.indexes++;
       j = j - 1;
     }
+    render(arr, j+1, j+1, cols, rows);
     arr[j + 1] = key;
     c.moves++;
-
-    render(arr, i, cols, rows);
   }
   return c;
 }
@@ -327,8 +326,8 @@ struct Counter selectionSort(int arr[], int cols, int rows) {
     }
     if (min_idx != i) {
       swap(&arr[min_idx], &arr[i]);
+      render(arr, min_idx, i, cols, rows);
       c.moves++;
-      render(arr, i, cols, rows);
     }
   }
   return c;
@@ -344,7 +343,7 @@ struct Counter oddevenSort(int arr[], int cols, int rows) {
         swap(&arr[i], &arr[i+1]);
         c.moves++;
         sorted = 0;
-        render(arr, i, cols, rows);
+        render(arr, i, i+1, cols, rows);
       }
       c.indexes++;
     }
@@ -353,7 +352,7 @@ struct Counter oddevenSort(int arr[], int cols, int rows) {
         swap(&arr[i], &arr[i+1]);
         c.moves++;
         sorted = 0;
-        render(arr, i, cols, rows);
+        render(arr, i, i+1, cols, rows);
       }
       c.indexes++;
     }
@@ -367,7 +366,7 @@ int flip(int arr[], int i, int cols, int rows) {
   while (start < i) {
     swap(&arr[start], &arr[i]);
     moves++;
-    render(arr, i, cols, rows);
+    render(arr, start, i+1, cols, rows);
     start++;
     i--;
   }
@@ -429,7 +428,7 @@ struct Counter pigeonholeSort(int arr[], int cols, int rows) {
     while (holes[i] > 0) {
       arr[index++] = i + min;
       c.moves++;
-      render(arr, index, cols, rows);
+      render(arr, index, index, cols, rows);
       holes[i]--;
       c.indexes += 2; // holes[i] and arr[index]
     }
@@ -457,8 +456,8 @@ struct Counter combSort(int arr[], int cols, int rows) {
     for (int i = 0; i < cols - gap; i++) {
       if (arr[i] > arr[i+gap]) {
         swap(&arr[i], &arr[i+gap]);
+        render(arr, i, i+gap, cols, rows);
         c.moves++;
-        render(arr, i, cols, rows);
         swapped = 1;
       }
       c.indexes++;
@@ -476,7 +475,7 @@ struct Counter stoogeSort(int arr[], int low, int high, int cols, int rows) {
   if (arr[low] > arr[high]){
     swap(&arr[low], &arr[high]);
     c.moves++;
-    render(arr, high, cols, rows);
+    render(arr, low, high, cols, rows);
   }
   c.indexes++;
 
@@ -503,7 +502,7 @@ void badSort(int arr[], int low, int high, int cols, int rows, struct Counter *c
   if (arr[mid] > arr[high]) {
     swap(&arr[mid], &arr[high]);
     c->moves++;
-    render(arr, mid, cols, rows);
+    render(arr, mid, high, cols, rows);
   }
   c->indexes++;
 
@@ -519,6 +518,7 @@ struct Counter badSortWrapper(int arr[], int cols, int rows) {
 struct Counter dropSort(int arr[], int cols, int rows) {
   struct Counter c = {.moves = 0, .indexes = 0};
   int max = 0; // All elements in array are > 0
+  int max_idx = -1;
   
   for (int i = 0; i < cols; i++) {
     if (arr[i] < max) {
@@ -526,8 +526,9 @@ struct Counter dropSort(int arr[], int cols, int rows) {
       c.moves++;
     } else {
       max = arr[i];
+      max_idx = i;
     }
-    render(arr, i, cols, rows);
+    render(arr, max_idx, i, cols, rows);
   }
   c.indexes = cols;
 

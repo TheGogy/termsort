@@ -37,12 +37,12 @@ void handleExit(int signum) {
 }
 
 /* Render each individual frame */
-void render(int arr[], int moved_element, int cols, int rows){
+void render(int arr[], int x, int y, int cols, int rows){
   clear(); // Clear screen
   for (int i = 0; i < cols; i++) {
-    if (i == moved_element){ attron(COLOR_PAIR(1)); }
+    if (i == x || i == y){ attron(COLOR_PAIR(1)); }
     mvvline(rows - arr[i], i, ACS_BOARD, arr[i]);
-    if (i == moved_element){ attroff(COLOR_PAIR(1)); }
+    if (i == x || i == y){ attroff(COLOR_PAIR(1)); }
   }
   refresh(); // Update screen
 

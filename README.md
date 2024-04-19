@@ -27,7 +27,7 @@ By default, this will install the project to your `$HOME/.local/bin` directory. 
 make install INSTALL_DIR=/path/to/custom/install/dir
 ```
 
-#Algorithms
+# Algorithms
 
 * bogosort
 * bubble sort
