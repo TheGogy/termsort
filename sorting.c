@@ -487,3 +487,26 @@ struct Counter stoogeSort(int arr[], int low, int high, int cols, int rows) {
   return c;
 }
 
+void badSort(int arr[], int low, int high, int cols, int rows, struct Counter *c) {
+  if (low >= high) return;
+
+  int mid = (low + high) / 2;
+  badSort(arr, low, mid, cols, rows, c);
+  badSort(arr, mid+1, high, cols, rows, c);
+
+  if (arr[mid] > arr[high]) {
+    swap(&arr[mid], &arr[high]);  
+    c->moves++;
+    render(arr, mid, cols, rows);
+  }
+  c->indexes++;
+
+  badSort(arr, low, high-1, cols, rows, c);
+}
+
+struct Counter badSortWrapper(int arr[], int cols, int rows) {
+  struct Counter c = {.moves = 0, .indexes = 0};
+  badSort(arr, 0, cols-1, cols, rows, &c);
+  return c;
+}
+

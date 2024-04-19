@@ -1,5 +1,7 @@
 # Termsort
 
+This is a project based on the famous video by Timo Bingmann, https://youtu.be/kPRA0W1kECg.
+
 To compile it:
 
 ```bash

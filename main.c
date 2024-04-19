@@ -29,8 +29,9 @@ const char *algorithms[] = {
   "pigeonholesort",
   "combsort",
   "stoogesort",
+  "badsort",
 };
-const int n_algorithms = 15;
+const int n_algorithms = 16;
 struct winsize w;
 
 int main(int argc, char **argv){
@@ -113,6 +114,8 @@ int main(int argc, char **argv){
     c = combSort(arr, ws.cols, ws.rows);
   } else if (algorithm == 14) {
     c = stoogeSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
+  } else if (algorithm == 15) {
+    c = badSortWrapper(arr, ws.cols, ws.rows);
   }
 
   renderSorted(arr, ws.cols, ws.rows);
@@ -126,8 +129,10 @@ int main(int argc, char **argv){
   mvwprintw(results, 3, 1, "Unique elements:  %d\n", ws.rows);
   mvwprintw(results, 4, 1, "Array indexes:    %d\n", c.indexes);
   mvwprintw(results, 5, 1, "Array moves:      %d\n", c.moves);
+  wattron(results, A_BOLD);
   box(results, 0, 0);
-  move(ws.cols, ws.rows) ;
+  wattroff(results, A_BOLD);
+  // move(ws.cols, ws.rows); // Move cursor to bottom right to be less distracting
 
   wrefresh(results);
 

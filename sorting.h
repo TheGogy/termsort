@@ -20,3 +20,4 @@ struct Counter pancakeSort(int arr[], int cols, int rows);
 struct Counter pigeonholeSort(int arr[], int cols, int rows);
 struct Counter combSort(int arr[], int cols, int rows);
 struct Counter stoogeSort(int arr[], int low, int high, int cols, int rows);
+struct Counter badSortWrapper(int arr[], int cols, int rows);
