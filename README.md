@@ -50,9 +50,9 @@ make install INSTALL_DIR=/path/to/custom/install/dir
 
 ## Todo
 
-[ ] - Add sounds to project
-[ ] - More sorting algorithms!!
-  [ ] - Radix sort
-  [ ] - Bitonic sort
-  [ ] - Binary Tree Sort
-  [ ] - Bozo sort
+- [ ] Add sounds to project
+- [ ] More sorting algorithms!!
+  - [ ] Radix sort
+  - [ ] Bitonic sort
+  - [ ] Binary Tree Sort
+  - [ ] Bozo sort
