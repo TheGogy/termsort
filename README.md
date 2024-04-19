@@ -7,6 +7,7 @@ This is a project to show a visual demonstration of how sorting algorithms work,
 ## Contents
 
 * [Installation](#Install)
+* [Algorithms included](#Algorithms)
 
 # Installation
 ```bash
@@ -22,3 +23,24 @@ By default, this will install the project to your `$HOME/.local/bin` directory. 
 ```bash
 make install INSTALL_DIR=/path/to/custom/install/dir
 ```
+
+#Algorithms
+
+* bogosort
+* bubble sort
+* quicksort
+* shellsort
+* mergesort
+* heapsort
+* gnomesort
+* cocktailsort
+* insertionsort
+* selectionsort
+* oddevensort
+* pancakesort
+* pigeonholesort
+* combsort
+* stoogesort
+* badsort
+* dropsort
+
