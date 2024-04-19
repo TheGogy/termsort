@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Wpedantic -std=gnu99 -lncursesw
 SRCS = main.c renderer.c arrayutils.c sorting.c
 OBJS = $(SRCS:.c=.o)
-INSTALL_DIR = $(HOME)/.local/bin
+INSTALL_DIR ?= $(HOME)/.local/bin
 EXEC = termsort
 
 .PHONY: all clean install uninstall

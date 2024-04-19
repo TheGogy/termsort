@@ -11,8 +11,8 @@ cd termsort
 make clean install
 ```
 
-This will put the compiled file in your `~/.local/bin` directory, where you can get started by running:
+By default, this will install the project to your `$HOME/.local/bin` directory. This can be changed by instead running the following command:
 
 ```bash
-termsort help
+make install INSTALL_DIR=/path/to/custom/install/dir
 ```
