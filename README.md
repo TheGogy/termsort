@@ -4,6 +4,9 @@ This is a project to show a visual demonstration of how sorting algorithms work,
 
 ![demo](./demo.gif)
 
+> [!note]
+> This program has only been tested on [foot](https://codeberg.org/dnkl/foot) and [kitty](https://sw.kovidgoyal.net/kitty), and may have flickering or other visual artifacts on other treminals.
+
 ## Contents
 
 * [Installation](#Install)
