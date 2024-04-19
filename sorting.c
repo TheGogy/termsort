@@ -14,6 +14,12 @@
  * insertionsort
  * selectionsort
  * oddevensort
+ * pancakesort
+ * pigeonholesort
+ * combsort
+ * stoogesort
+ * badsort
+ * dropsort
  */
 
 
@@ -495,7 +501,7 @@ void badSort(int arr[], int low, int high, int cols, int rows, struct Counter *c
   badSort(arr, mid+1, high, cols, rows, c);
 
   if (arr[mid] > arr[high]) {
-    swap(&arr[mid], &arr[high]);  
+    swap(&arr[mid], &arr[high]);
     c->moves++;
     render(arr, mid, cols, rows);
   }
@@ -510,3 +516,20 @@ struct Counter badSortWrapper(int arr[], int cols, int rows) {
   return c;
 }
 
+struct Counter dropSort(int arr[], int cols, int rows) {
+  struct Counter c = {.moves = 0, .indexes = 0};
+  int max = 0; // All elements in array are > 0
+  
+  for (int i = 0; i < cols; i++) {
+    if (arr[i] < max) {
+      arr[i] = 0;
+      c.moves++;
+    } else {
+      max = arr[i];
+    }
+    render(arr, i, cols, rows);
+  }
+  c.indexes = cols;
+
+  return c;
+}

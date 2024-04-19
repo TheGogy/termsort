@@ -30,8 +30,9 @@ const char *algorithms[] = {
   "combsort",
   "stoogesort",
   "badsort",
+  "dropsort",
 };
-const int n_algorithms = 16;
+const int n_algorithms = 17;
 struct winsize w;
 
 int main(int argc, char **argv){
@@ -116,6 +117,8 @@ int main(int argc, char **argv){
     c = stoogeSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
   } else if (algorithm == 15) {
     c = badSortWrapper(arr, ws.cols, ws.rows);
+  } else if (algorithm == 16) {
+    c = dropSort(arr, ws.cols, ws.rows);
   }
 
   renderSorted(arr, ws.cols, ws.rows);
