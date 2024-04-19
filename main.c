@@ -40,10 +40,10 @@ int main(int argc, char **argv){
   if (argc < 2 || strcmp("help", argv[1]) == 0) {
     printf(
       "Usage: %s [arguments...] [-se]\n"
-      "Options:\n"
+      "\n\033[31;1mOptions:\033[0m\n"
       "-s                    Color for swapped element  (default: 1)\n"
       "-e                    Color for sorted animation (default: 2)\n"
-      "Arguments:\n"
+      "\n\033[31;1mArguments:\033[0m\n"
       "<sorting algorithm>   Show sorting algorithm\n"
       "list                  List available sorting algorithms\n"
       "help                  Print this help menu\n",
@@ -55,7 +55,7 @@ int main(int argc, char **argv){
   int col_swap = 1; // Color to display swapped element       (default: red)
   int col_end = 2;  // Color to display when list is sorted   (default: green)
 
-  for (int i = 2; i < argc; i++) {
+  for (int i = 1; i < argc; i++) {
     if (strcmp("-s", argv[i]) == 0) {
       if (argc > i + 1 && atoi(argv[i+1]) < 256) {
         col_swap = atoi(argv[i+1]);
@@ -91,7 +91,10 @@ int main(int argc, char **argv){
   }
 
   if (algorithm == -1) {
-    printf("\"%s\" is not a known sorting algorithm. Please run \033[32;1m%s help\033[0m for more info.\n", argv[1], argv[0]);
+    printf("Unknown sorting algorithm. Please run:\n"
+           "\033[32;1m%s help\033[0m    for more info, or;\n"
+           "\033[32;1m%s list\033[0m    for a list of sorting algorithms.\n", 
+           argv[0], argv[0]);
     return EXIT_FAILURE;
   }
 

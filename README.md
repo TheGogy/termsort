@@ -47,3 +47,12 @@ make install INSTALL_DIR=/path/to/custom/install/dir
 * badsort
 * dropsort
 
+
+## Todo
+
+[ ] - Add sounds to project
+[ ] - More sorting algorithms!!
+  [ ] - Radix sort
+  [ ] - Bitonic sort
+  [ ] - Binary Tree Sort
+  [ ] - Bozo sort
