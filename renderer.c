@@ -6,7 +6,7 @@
 
 #include "renderer.h"
 
-struct WinSize setupRender(){
+struct WinSize setupRender(int col_swap, int col_end){
   setlocale(LC_ALL,"");
   initscr();            // Initialise ncurses
   cbreak();             // Disable line buffering
@@ -14,8 +14,8 @@ struct WinSize setupRender(){
   curs_set(0);          // Hide cursor
   use_default_colors();
   start_color();        // Initialise colour rendering
-  init_pair(1, 1, -1);
-  init_pair(2, 2, -1);
+  init_pair(1, col_swap, -1);
+  init_pair(2, col_end, -1);
   int max_x, max_y;
   getmaxyx(stdscr, max_y, max_x);
   struct WinSize ws = {

@@ -37,36 +37,65 @@ struct winsize w;
 
 int main(int argc, char **argv){
 
-  if (argc != 2 || strcmp("help", argv[1]) == 0) {
+  if (argc < 2 || strcmp("help", argv[1]) == 0) {
     printf(
-      "Usage:\n"
-      "%s <sorting algorithm>   Show sorting algorithm\n"
-      "%s list                  List available sorting algorithms\n"
-      "%s help                  Print this help menu\n",
-      argv[0], argv[0], argv[0]);
+      "Usage: %s [arguments...] [-se]\n"
+      "Options:\n"
+      "-s                    Color for swapped element  (default: 1)\n"
+      "-e                    Color for sorted animation (default: 2)\n"
+      "Arguments:\n"
+      "<sorting algorithm>   Show sorting algorithm\n"
+      "list                  List available sorting algorithms\n"
+      "help                  Print this help menu\n",
+      argv[0]);
     return EXIT_FAILURE;
   }
 
-  if (strcmp("list", argv[1]) == 0) {
-    for (int i = 0; i < n_algorithms; i++) {
-      printf("%s\n", algorithms[i]);
-    }
-    return EXIT_SUCCESS;
-  }
-  
   int algorithm = -1;
-  for (int i = 0; i < n_algorithms; i++) {
-    if(strcmp(algorithms[i], argv[1]) == 0){
-      algorithm = i;
-      break;
+  int col_swap = 1; // Color to display swapped element       (default: red)
+  int col_end = 2;  // Color to display when list is sorted   (default: green)
+
+  for (int i = 2; i < argc; i++) {
+    if (strcmp("-s", argv[i]) == 0) {
+      if (argc > i + 1 && atoi(argv[i+1]) < 256) {
+        col_swap = atoi(argv[i+1]);
+        i++;
+        continue;
+      } else{
+        printf("Please enter a valid color.\n");
+        return EXIT_FAILURE;
+      }
+    } else if (strcmp("-e", argv[i]) == 0) {
+      if (argc > i + 1 && atoi(argv[i+1]) < 256) {
+        col_end = atoi(argv[i+1]);
+        i++;
+        continue;
+      } else{
+        printf("Please enter a valid color.\n");
+        return EXIT_FAILURE;
+      }
+    } else if (strcmp("list", argv[i]) == 0) {
+      for (int i = 0; i < n_algorithms; i++) {
+        printf("%s\n", algorithms[i]);
+      }
+      return EXIT_SUCCESS;
+    } else{
+      for (int i = 0; i < n_algorithms; i++) {
+        if(strcmp(algorithms[i], argv[1]) == 0){
+          algorithm = i;
+          break;
+        }
+      }
+
     }
   }
+
   if (algorithm == -1) {
     printf("\"%s\" is not a known sorting algorithm. Please run \033[32;1m%s help\033[0m for more info.\n", argv[1], argv[0]);
     return EXIT_FAILURE;
   }
 
-  struct WinSize ws = setupRender();
+  struct WinSize ws = setupRender(col_swap, col_end);
 
   // Initialise array
   int arr[ws.cols];
