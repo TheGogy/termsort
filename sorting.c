@@ -592,3 +592,54 @@ struct Counter bozoSort(int arr[], int n) {
   return c;
 }
 
+void inplaceMerge(int arr[], int low, int mid, int high, struct Counter *c) {
+  int ptr = mid + 1;
+  int value, index;
+  if (arr[mid] <= arr[ptr]) {
+    return;
+  }
+  c->indexes++;
+
+  while (low <= mid && ptr <= high) {
+    if (arr[low] <= arr[ptr]) {
+      low++;
+      continue;
+    }
+    c->indexes++;
+
+    value = arr[ptr];
+    index = ptr;
+
+    while (index != low) {
+      arr[index] = arr[index-1];
+      render(arr, index, index-1);
+      c->moves++;
+      index--;
+    }
+    arr[low] = value;
+    c->moves++;
+    render(arr, low, low);
+    low++;
+    mid++;
+    ptr++;
+  }
+}
+
+
+void inplaceMergeSort(int arr[], int low, int high, struct Counter *c) {
+  if (low < high) {
+    int mid = low + (high - low) / 2;
+    inplaceMergeSort(arr, low, mid, c);
+    inplaceMergeSort(arr, mid+1, high, c);
+
+    inplaceMerge(arr, low, mid, high, c);
+  }
+}
+
+struct Counter inplaceMergeSortWrapper(int arr[], int n) {
+  struct Counter c = {.moves = 0, .indexes = 0};
+
+  inplaceMergeSort(arr, 0, n - 1, &c);
+
+  return c;
+}

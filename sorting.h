@@ -24,3 +24,4 @@ struct Counter badSortWrapper(int arr[], int n);
 struct Counter dropSort(int arr[], int n);
 struct Counter radixSort(int arr[], int n);
 struct Counter bozoSort(int arr[], int n);
+struct Counter inplaceMergeSortWrapper(int arr[], int n);

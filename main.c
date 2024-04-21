@@ -33,8 +33,9 @@ const char *algorithms[] = {
   "dropsort",
   "radixsort",
   "bozosort",
+  "inplacemergesort",
 };
-const int n_algorithms = 19;
+const int n_algorithms = 20;
 struct winsize w;
 
 int main(int argc, char **argv){
@@ -178,6 +179,8 @@ int main(int argc, char **argv){
     c = radixSort(arr, ws.cols);
   } else if (algorithm == 18) {
     c = bozoSort(arr, ws.cols);
+  } else if (algorithm == 19) {
+    c = inplaceMergeSortWrapper(arr, ws.cols);
   }
 
   renderSorted(arr);
