@@ -141,46 +141,46 @@ int main(int argc, char **argv){
   struct Counter c;
 
   if (algorithm == 0){
-    c = bogoSort(arr, ws.cols, ws.rows);
+    c = bogoSort(arr, ws.cols);
   } else if (algorithm == 1) {
-    c = bubbleSort(arr, ws.cols, ws.rows);
+    c = bubbleSort(arr, ws.cols);
   } else if (algorithm == 2) {
-    c = quickSortWrapper(arr, ws.cols, ws.rows);
+    c = quickSortWrapper(arr, ws.cols);
   } else if (algorithm == 3) {
-    c = shellSort(arr, ws.cols, ws.rows);
+    c = shellSort(arr, ws.cols);
   } else if (algorithm == 4) {
-    c = mergeSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
+    c = mergeSort(arr, 0, ws.cols - 1, ws.cols);
   } else if (algorithm == 5) {
-    c = heapSort(arr, ws.cols, ws.rows);
+    c = heapSort(arr, ws.cols);
   } else if (algorithm == 6) {
-    c = gnomeSort(arr, ws.cols, ws.rows);
+    c = gnomeSort(arr, ws.cols);
   } else if (algorithm == 7) {
-    c = cocktailSort(arr, ws.cols, ws.rows);
+    c = cocktailSort(arr, ws.cols);
   } else if (algorithm == 8) {
-    c = insertionSort(arr, ws.cols, ws.rows);
+    c = insertionSort(arr, ws.cols);
   } else if (algorithm == 9) {
-    c = selectionSort(arr, ws.cols, ws.rows);
+    c = selectionSort(arr, ws.cols);
   } else if (algorithm == 10) {
-    c = oddevenSort(arr, ws.cols, ws.rows);
+    c = oddevenSort(arr, ws.cols);
   } else if (algorithm == 11) {
-    c = pancakeSort(arr, ws.cols, ws.rows);
+    c = pancakeSort(arr, ws.cols);
   } else if (algorithm == 12) {
-    c = pigeonholeSort(arr, ws.cols, ws.rows);
+    c = pigeonholeSort(arr, ws.cols);
   } else if (algorithm == 13) {
-    c = combSort(arr, ws.cols, ws.rows);
+    c = combSort(arr, ws.cols);
   } else if (algorithm == 14) {
-    c = stoogeSort(arr, 0, ws.cols - 1, ws.cols, ws.rows);
+    c = stoogeSort(arr, 0, ws.cols - 1, ws.cols);
   } else if (algorithm == 15) {
-    c = badSortWrapper(arr, ws.cols, ws.rows);
+    c = badSortWrapper(arr, ws.cols);
   } else if (algorithm == 16) {
-    c = dropSort(arr, ws.cols, ws.rows);
+    c = dropSort(arr, ws.cols);
   } else if (algorithm == 17) {
-    c = radixSort(arr, ws.cols, ws.rows);
+    c = radixSort(arr, ws.cols);
   } else if (algorithm == 18) {
-    c = bozoSort(arr, ws.cols, ws.rows);
+    c = bozoSort(arr, ws.cols);
   }
 
-  renderSorted(arr, ws.cols, ws.rows);
+  renderSorted(arr);
 
   // Display the results in the top left
   WINDOW *results = newwin(7, 25, 0, 0);
