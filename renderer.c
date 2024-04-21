@@ -6,7 +6,18 @@
 
 #include "renderer.h"
 
-struct WinSize setupRender(int col_swap, int col_end){
+struct timespec delay = {.tv_sec = 0};
+struct timespec delay_finished = {.tv_sec = 0};
+
+struct WinSize setupRender(int col_swap, int col_end, int delay_ms, int delay_finished_ms){
+
+  // Set up like this so that delay can be more than 1000ms.
+  // Not sure why people would want that but it's there.
+
+  delay.tv_sec = (delay_ms / 1000);
+  delay.tv_nsec = (delay_ms % 1000) * 1000000;
+  delay_finished.tv_sec = (delay_finished_ms / 1000);
+  delay_finished.tv_nsec = (delay_finished_ms % 1000)  * 1000000;
   setlocale(LC_ALL,"");
   initscr();            // Initialise ncurses
   cbreak();             // Disable line buffering
@@ -45,20 +56,16 @@ void render(int arr[], int x, int y, int cols, int rows){
     if (i == x || i == y){ attroff(COLOR_PAIR(1)); }
   }
   refresh(); // Update screen
-
-  // Sleep for 15 ms
-  struct timespec delay = {.tv_sec = 0, .tv_nsec = 15000000};
   nanosleep(&delay, NULL);
 }
 
 void renderSorted(int arr[], int cols, int rows) {
-  struct timespec delay = {.tv_sec = 0, .tv_nsec = 7500000};
 
   for (int i = 0; i < cols; i++) {
     attron(COLOR_PAIR(2));
     mvvline(rows - arr[i], i, ACS_BOARD, arr[i]);
     attroff(COLOR_PAIR(2));
     refresh();
-    nanosleep(&delay, NULL);
+    nanosleep(&delay_finished, NULL);
   }
 }

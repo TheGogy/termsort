@@ -5,7 +5,7 @@ This is a project to show a visual demonstration of how sorting algorithms work,
 ![demo](./demo.gif)
 
 > [!note]
-> This program has only been tested on [foot](https://codeberg.org/dnkl/foot) and [kitty](https://sw.kovidgoyal.net/kitty), and may have flickering or other visual artifacts on other treminals.
+> This program has only been tested on [foot](https://codeberg.org/dnkl/foot) and [kitty](https://sw.kovidgoyal.net/kitty), and may have flickering or other visual artifacts on other terminals.
 
 ## Contents
 
@@ -47,6 +47,7 @@ make install INSTALL_DIR=/path/to/custom/install/dir
 * badsort
 * dropsort
 * radixsort
+* bozosort
 
 
 ## Todo
@@ -54,6 +55,6 @@ make install INSTALL_DIR=/path/to/custom/install/dir
 - [ ] Add sounds to project
 - [ ] More sorting algorithms!!
   - [x] Radix sort
+  - [x] Bozo sort
   - [ ] Bitonic sort
   - [ ] Binary Tree Sort
-  - [ ] Bozo sort

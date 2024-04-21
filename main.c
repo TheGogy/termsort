@@ -41,10 +41,12 @@ int main(int argc, char **argv){
 
   if (argc < 2 || strcmp("help", argv[1]) == 0) {
     printf(
-      "Usage: %s [arguments...] [-se]\n"
+      "Usage: %s [arguments...] [-sedf]\n"
       "\n\033[31;1mOptions:\033[0m\n"
-      "-s                    Color for swapped element  (default: 1)\n"
-      "-e                    Color for sorted animation (default: 2)\n"
+      "-s                    Color for swapped element                  (default: 1)\n"
+      "-e                    Color for sorted animation                 (default: 2)\n"
+      "-d                    Delay between frames (ms)                  (default: 15)\n"
+      "-f                    Delay between frames for finish animation  (default: 7)\n"
       "\n\033[31;1mArguments:\033[0m\n"
       "<sorting algorithm>   Show sorting algorithm\n"
       "list                  List available sorting algorithms\n"
@@ -54,8 +56,10 @@ int main(int argc, char **argv){
   }
 
   int algorithm = -1;
-  int col_swap = 1; // Color to display swapped element       (default: red)
-  int col_end = 2;  // Color to display when list is sorted   (default: green)
+  int col_swap = 1;      // Color to display swapped element
+  int col_end = 2;       // Color to display when list is sorted
+  int delay_ms = 15;     // Delay between rendering each frame
+  int delay_finished = 7;  // Delay between rendering each frame for finish animation
 
   for (int i = 1; i < argc; i++) {
     if (strcmp("-s", argv[i]) == 0) {
@@ -74,6 +78,24 @@ int main(int argc, char **argv){
         continue;
       } else{
         printf("Please enter a valid color.\n");
+        return EXIT_FAILURE;
+      }
+    } else if (strcmp("-d", argv[i]) == 0) {
+      if (argc > i + 1 && atoi(argv[i+1]) > 0) {
+        delay_ms = atoi(argv[i+1]);
+        i++; // Skip next element
+        continue;
+      } else{
+        printf("Please enter a valid number.\n");
+        return EXIT_FAILURE;
+      }
+    } else if (strcmp("-f", argv[i]) == 0) {
+      if (argc > i + 1 && atoi(argv[i+1]) > 0) {
+        delay_finished = atoi(argv[i+1]);
+        i++; // Skip next element
+        continue;
+      } else{
+        printf("Please enter a valid number.\n");
         return EXIT_FAILURE;
       }
     } else if (strcmp("list", argv[i]) == 0) {
@@ -99,7 +121,7 @@ int main(int argc, char **argv){
     return EXIT_FAILURE;
   }
 
-  struct WinSize ws = setupRender(col_swap, col_end);
+  struct WinSize ws = setupRender(col_swap, col_end, delay_ms, delay_finished);
 
   // Initialise array
   int arr[ws.cols];

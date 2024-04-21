@@ -20,6 +20,8 @@
  * stoogesort
  * badsort
  * dropsort
+ * radixsort
+ * bozosort
  */
 
 #include <stdlib.h>
