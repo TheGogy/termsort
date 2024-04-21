@@ -31,8 +31,9 @@ const char *algorithms[] = {
   "stoogesort",
   "badsort",
   "dropsort",
+  "radixsort",
 };
-const int n_algorithms = 17;
+const int n_algorithms = 18;
 struct winsize w;
 
 int main(int argc, char **argv){
@@ -59,7 +60,7 @@ int main(int argc, char **argv){
     if (strcmp("-s", argv[i]) == 0) {
       if (argc > i + 1 && atoi(argv[i+1]) < 256) {
         col_swap = atoi(argv[i+1]);
-        i++;
+        i++; // Skip next element
         continue;
       } else{
         printf("Please enter a valid color.\n");
@@ -68,7 +69,7 @@ int main(int argc, char **argv){
     } else if (strcmp("-e", argv[i]) == 0) {
       if (argc > i + 1 && atoi(argv[i+1]) < 256) {
         col_end = atoi(argv[i+1]);
-        i++;
+        i++; // Skip next element
         continue;
       } else{
         printf("Please enter a valid color.\n");
@@ -80,13 +81,12 @@ int main(int argc, char **argv){
       }
       return EXIT_SUCCESS;
     } else{
-      for (int i = 0; i < n_algorithms; i++) {
-        if(strcmp(algorithms[i], argv[1]) == 0){
-          algorithm = i;
+      for (int j = 0; j < n_algorithms; j++) {
+        if(strcmp(algorithms[j], argv[i]) == 0){
+          algorithm = j;
           break;
         }
       }
-
     }
   }
 
@@ -151,6 +151,8 @@ int main(int argc, char **argv){
     c = badSortWrapper(arr, ws.cols, ws.rows);
   } else if (algorithm == 16) {
     c = dropSort(arr, ws.cols, ws.rows);
+  } else if (algorithm == 17) {
+    c = radixSort(arr, ws.cols, ws.rows);
   }
 
   renderSorted(arr, ws.cols, ws.rows);

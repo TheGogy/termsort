@@ -534,3 +534,40 @@ struct Counter dropSort(int arr[], int cols, int rows) {
 
   return c;
 }
+
+struct Counter radixSort(int arr[], int cols, int rows) {
+  struct Counter c = {.moves = 0, .indexes = 0};
+
+  int digit = 1;
+  int result[cols];
+  int largestNum = getMax(arr, cols);
+
+  while (largestNum/digit > 0) {
+    int count[10] = {0};
+    for (int i = 0; i < cols; i++) {
+      count[(arr[i]/digit) % 10]++;
+    }
+    c.indexes += cols;
+    
+    for (int i = 1; i < 10; i++) {
+      count[i] += count[i-1];
+    } 
+    c.indexes += 10;
+    
+    for (int i = cols - 1; i >= 0; i--) {
+      result[--count[(arr[i]/digit) % 10]] = arr[i];
+    }
+    c.indexes += cols * 2;
+    c.moves += cols * 2;
+
+    for (int i = 0; i < cols; i++) {
+      arr[i] = result[i];
+      render(arr, i, i, cols, rows);
+    }
+    digit *= 10;
+    c.indexes += cols;
+    c.moves += cols;
+  }
+  
+  return c;
+}

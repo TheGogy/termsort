@@ -22,3 +22,4 @@ struct Counter combSort(int arr[], int cols, int rows);
 struct Counter stoogeSort(int arr[], int low, int high, int cols, int rows);
 struct Counter badSortWrapper(int arr[], int cols, int rows);
 struct Counter dropSort(int arr[], int cols, int rows);
+struct Counter radixSort(int arr[], int cols, int rows);

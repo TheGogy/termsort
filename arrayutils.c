@@ -20,6 +20,16 @@ int isSorted(int arr[], int arr_len) {
   return -1;
 }
 
+int getMax(int arr[], int arr_len) {
+  int max = arr[0];
+  for (int i = 1; i < arr_len; i++) {
+    if (arr[i] > max) {
+      max = arr[i];
+    }
+  }
+  return max;
+}
+
 void shuffleArray(int arr[], int arr_len) {
   srand(time(NULL)); // Seed the random number generator
   for (int i = arr_len - 1; i > 0; i--) {
