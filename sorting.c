@@ -151,12 +151,12 @@ struct Counter merge(int arr[], int low, int mid, int high, int cols, int rows) 
     c.indexes++;
     if (L[i] <= R[j]) {
       arr[k] = L[i];
-      render(arr, k, i, cols, rows);
+      render(arr, k, mid+i, cols, rows);
       c.moves++;
       i++;
     } else {
       arr[k] = R[j];
-      render(arr, k, j, cols, rows);
+      render(arr, k, mid+j, cols, rows);
       c.moves++;
       j++;
     }
@@ -166,14 +166,14 @@ struct Counter merge(int arr[], int low, int mid, int high, int cols, int rows) 
   while (i < n1) {
     arr[k] = L[i];
     c.moves++;
-    render(arr, k, i, cols, rows);
+    render(arr, k, mid+i, cols, rows);
     i++;
     k++;
   }
 
   while (j < n2) {
     arr[k] = R[j];
-    render(arr, k, j, cols, rows);
+    render(arr, k, mid+j, cols, rows);
     j++;
     k++;
   }
