@@ -22,6 +22,7 @@
  * dropsort
  */
 
+#include <stdlib.h>
 
 #include "sorting.h"
 #include "arrayutils.h"
@@ -571,3 +572,21 @@ struct Counter radixSort(int arr[], int cols, int rows) {
   
   return c;
 }
+
+struct Counter bozoSort(int arr[], int cols, int rows) {
+  struct Counter c = {.moves = 0, .indexes = 0};
+  int x, y;
+  while (isSorted(arr, cols) != -1) {
+    x = rand() % (cols);
+    y = rand() % (cols);
+    render(arr, x, y, cols, rows);
+    if ((x < y) != (arr[x] < arr[y])) {
+      swap(&arr[x], &arr[y]);
+      c.moves++;
+    }
+    c.indexes += 2;
+
+  }
+  return c;
+}
+
