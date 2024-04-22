@@ -66,43 +66,37 @@ struct Counter bubbleSort(int arr[], int n) {
   return c;
 }
 
-int partition(int arr[], int low, int high, struct Counter *c) {
-  int pivot = arr[low]; 
+void quicksort(int arr[], int low, int high, struct Counter *c) {
+  int p = low;
+  int pivot = arr[p];
   int i = low; 
   int j = high; 
 
-  while (i < j) { 
-    while (arr[i] <= pivot && i <= high - 1) { 
+  while (i <= j) { 
+    while (arr[i] < pivot) { 
       c->indexes++;
       i++; 
     } 
-    while (arr[j] > pivot && j >= low + 1) { 
+    while (arr[j] > pivot) { 
       c->indexes++;
       j--; 
     } 
-    if (i < j) { 
+    if (i <= j) { 
       swap(&arr[i], &arr[j]); 
       render(arr, i, j);
+      if (p == i) p = j;
+      else if (p == j) p = i;
+      i++, j--;
       c->moves++;
     } 
-  } 
-  swap(&arr[low], &arr[j]); 
-  render(arr, low, j);
-  c->moves++;
-  return j; 
-} 
-
-void quickSort(int arr[], int low, int high, int n, struct Counter *c) {
-  if (low < high) {
-    int i = partition(arr, low, high, c);
-    quickSort(arr, low, i - 1, n, c);
-    quickSort(arr, i + 1, high, n, c);
   }
-}
+  if (low < j)  quicksort(arr, low, j, c);
+  if (i < high) quicksort(arr, i, high, c);
+} 
 
 struct Counter quickSortWrapper(int arr[], int n) {
   struct Counter c = {.moves = 0, .indexes = 0};
-  quickSort(arr, 0, n - 1, n, &c);
+  quicksort(arr, 0, n - 1, &c);
   return c;
 }
 
