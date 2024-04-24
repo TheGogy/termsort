@@ -66,9 +66,9 @@ make clean install BACKEND=sdl
 
 - [x] Graphical frontend
   - [ ] Full color support to graphical frontend
-- [ ] Add sounds to project
+  - [ ] Add sounds using sdl
+  - [ ] Display stats on graphical frontend
+
 - [ ] More sorting algorithms!!
-  - [x] Radix sort
-  - [x] Bozo sort
   - [ ] Bitonic sort
   - [ ] Binary Tree Sort

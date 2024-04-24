@@ -36,14 +36,15 @@ struct WinSize setupRender(char *col_swap, char *col_end, int delay_ms, int dela
   }
 
   // Create window
-  window = SDL_CreateWindow("Sorting Visualizer", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
+  window = SDL_CreateWindow("Sorting Visualizer", WIDTH, HEIGHT, 0);
+
   if (window == NULL) {
     printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
     exit(EXIT_FAILURE);
   }
 
   // Create renderer
-  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+  renderer = SDL_CreateRenderer(window, NULL, 0);
   if (renderer == NULL) {
     printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
     exit(EXIT_FAILURE);
@@ -69,7 +70,7 @@ void handleExit(int signum) {
 void render(int arr[], int x, int y){
   drawWindowWrapper(renderer, backgroundColor); // Black background
   SDL_RenderClear(renderer);
-  SDL_Rect bar;
+  SDL_FRect bar;
   for (int i = 0; i < WIDTH; i++) {
     bar.x = i;
     bar.y = HEIGHT - arr[i];
@@ -85,14 +86,14 @@ void render(int arr[], int x, int y){
   SDL_RenderPresent(renderer);
   SDL_Delay(delay);
   while (SDL_PollEvent(&event) != 0) {
-    if (event.type == SDL_QUIT) {
+    if (event.type == SDL_EVENT_QUIT) {
       handleExit(1);
     }
   }
 }
 
 void renderSorted(int arr[], char *results[], int results_len) {
-  SDL_Rect bar;
+  SDL_FRect bar;
   for (int i = 0; i < WIDTH; i++) {
     drawWindowWrapper(renderer, backgroundColor);
     SDL_RenderClear(renderer);
@@ -111,14 +112,14 @@ void renderSorted(int arr[], char *results[], int results_len) {
     SDL_RenderPresent(renderer);
     SDL_Delay(delay_finished);
     while (SDL_PollEvent(&event) != 0) {
-      if (event.type == SDL_QUIT) {
+      if (event.type == SDL_EVENT_QUIT) {
         handleExit(1);
       }
     }
   }
   while(1) {
     while (SDL_PollEvent(&event) != 0) {
-      if (event.type == SDL_QUIT || event.type == SDL_KEYDOWN) {
+      if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_KEY_DOWN) {
         handleExit(0);
       }
     }
