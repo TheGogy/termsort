@@ -1,10 +1,3 @@
-
-struct Counter {
-  int indexes;
-  int moves;
-};
-
-
 struct Counter bogoSort(int arr[], int n);
 struct Counter bubbleSort(int arr[], int n);
 struct Counter quickSortWrapper(int arr[], int n);

@@ -11,8 +11,6 @@
 #include "renderer.h"
 #include "sorting.h"
 
-#define MIN(x, y) (((x) < (y)) ? (x) : (y))
-
 const char *algorithms[] = {
   "bogosort", 
   "bubblesort", 
@@ -38,16 +36,21 @@ const char *algorithms[] = {
 const int n_algorithms = 20;
 struct winsize w;
 
+// Define delay variables
+#ifndef BACKEND_SDL
+    #define BACKEND_SDL 0
+#endif
+
 int main(int argc, char **argv){
 
   if (argc < 2 || strcmp("help", argv[1]) == 0) {
     printf(
       "Usage: %s [arguments...] [-sedf]\n"
       "\n\033[31;1mOptions:\033[0m\n"
-      "-s                    Color for swapped element                  (default: 1)\n"
-      "-e                    Color for sorted animation                 (default: 2)\n"
-      "-d                    Delay between frames (ms)                  (default: 15)\n"
-      "-f                    Delay between frames for finish animation  (default: 7)\n"
+      "-s                    Color for swapped element                \n"
+      "-e                    Color for sorted animation               \n"
+      "-d                    Delay between frames (ms)                \n"
+      "-f                    Delay between frames for finish animation\n"
       "\n\033[31;1mArguments:\033[0m\n"
       "<sorting algorithm>   Show sorting algorithm\n"
       "list                  List available sorting algorithms\n"
@@ -57,15 +60,21 @@ int main(int argc, char **argv){
   }
 
   int algorithm = -1;
-  int col_swap = 1;      // Color to display swapped element
-  int col_end = 2;       // Color to display when list is sorted
-  int delay_ms = 15;     // Delay between rendering each frame
-  int delay_finished = 7;  // Delay between rendering each frame for finish animation
+  char *col_swap = "1";      // Color to display swapped element
+  char *col_end =  "2";       // Color to display when list is sorted
+  int delay_ms;          // Delay between rendering each frame
+  int delay_finished;    // Delay between rendering each frame for finish animation
+
+  if (BACKEND_SDL) {
+    delay_ms = 1; delay_finished = 1;
+  } else {
+    delay_ms = 15; delay_finished = 7;
+  }
 
   for (int i = 1; i < argc; i++) {
     if (strcmp("-s", argv[i]) == 0) {
-      if (argc > i + 1 && atoi(argv[i+1]) < 256) {
-        col_swap = atoi(argv[i+1]);
+      if (argc > i + 1) {
+        col_swap = argv[i+1];
         i++; // Skip next element
         continue;
       } else{
@@ -73,8 +82,8 @@ int main(int argc, char **argv){
         return EXIT_FAILURE;
       }
     } else if (strcmp("-e", argv[i]) == 0) {
-      if (argc > i + 1 && atoi(argv[i+1]) < 256) {
-        col_end = atoi(argv[i+1]);
+      if (argc > i + 1) {
+        col_end = argv[i+1];
         i++; // Skip next element
         continue;
       } else{
@@ -82,7 +91,7 @@ int main(int argc, char **argv){
         return EXIT_FAILURE;
       }
     } else if (strcmp("-d", argv[i]) == 0) {
-      if (argc > i + 1 && atoi(argv[i+1]) > 0) {
+      if (argc > i + 1 && atoi(argv[i+1]) >= 0) {
         delay_ms = atoi(argv[i+1]);
         i++; // Skip next element
         continue;
@@ -91,7 +100,7 @@ int main(int argc, char **argv){
         return EXIT_FAILURE;
       }
     } else if (strcmp("-f", argv[i]) == 0) {
-      if (argc > i + 1 && atoi(argv[i+1]) > 0) {
+      if (argc > i + 1 && atoi(argv[i+1]) >= 0) {
         delay_finished = atoi(argv[i+1]);
         i++; // Skip next element
         continue;
@@ -183,25 +192,20 @@ int main(int argc, char **argv){
     c = inplaceMergeSortWrapper(arr, ws.cols);
   }
 
-  renderSorted(arr);
-  //
-  // // Display the results in the top left
-  // WINDOW *results = newwin(7, 25, 0, 0);
-  // wattron(results, A_BOLD);
-  // mvwprintw(results, 1, 1, "%s", algorithms[algorithm]);
-  // wattroff(results, A_BOLD);
-  // mvwprintw(results, 2, 1, "Total elements:   %d\n", ws.cols);
-  // mvwprintw(results, 3, 1, "Unique elements:  %d\n", ws.rows);
-  // mvwprintw(results, 4, 1, "Array indexes:    %d\n", c.indexes);
-  // mvwprintw(results, 5, 1, "Array moves:      %d\n", c.moves);
-  // wattron(results, A_BOLD);
-  // box(results, 0, 0);
-  // wattroff(results, A_BOLD);
-  // // move(ws.cols, ws.rows); // Move cursor to bottom right to be less distracting
-  //
-  // wrefresh(results);
-  //
-  // getch(); // Wait for user input before exiting
+  char title[26], total[26], unique[26], indexes[26], moves[26];
+  snprintf(title,  26, "%s", algorithms[algorithm]);
+  snprintf(total,  26, "Total elements:   %d\n", ws.cols); 
+  snprintf(unique, 26, "Unique elements:  %d\n", ws.rows); 
+  snprintf(indexes,26, "Array indexes:    %d\n", c.indexes);
+  snprintf(moves,  26, "Array moves:      %d\n", c.moves); 
+
+  char *results[5] = {
+    title, total, unique, indexes, moves
+  };
+
+  renderSorted(arr, results, 5);
+
+  // Display the results in the top left
   handleExit(0);
   return EXIT_SUCCESS;
 }
