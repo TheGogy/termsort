@@ -24,34 +24,48 @@ make clean install
 By default, this will install the project to your `$HOME/.local/bin` directory. This can be changed by instead running the following command:
 
 ```bash
-make install INSTALL_DIR=/path/to/custom/install/dir
+make clean install INSTALL_DIR=/path/to/custom/install/dir
+```
+
+This program also includes a graphical interface made with [sdl](https://www.libsdl.org/). To compile with this as the frontend, you may need to install the sdl3 package, which is found in many repos:
+
+```bash
+paru -S sdl3-git
+```
+
+Then simply change the backend in the flags:
+```bash
+make clean install BACKEND=sdl
 ```
 
 # Algorithms
 
-* bogosort
+* bogo sort
 * bubble sort
-* quicksort
-* shellsort
-* mergesort
-* heapsort
-* gnomesort
-* cocktailsort
-* insertionsort
-* selectionsort
-* oddevensort
-* pancakesort
-* pigeonholesort
-* combsort
-* stoogesort
-* badsort
-* dropsort
-* radixsort
-* bozosort
+* quick sort
+* shell sort
+* merge sort
+* heap sort
+* gnome sort
+* cocktail sort
+* insertion sort
+* selection sort
+* oddeven sort
+* pancake sort
+* pigeonhole sort
+* comb sort
+* stooges ort
+* bad sort
+* drop sort
+* radix sort
+* bozo sort
+* inplace merge sort
 
 
 ## Todo
 
+- [x] Graphical frontend
+  - [ ] Full color support to graphical frontend
 - [ ] Add sounds to project
 - [ ] More sorting algorithms!!
   - [x] Radix sort

@@ -1,5 +1,6 @@
 
 BACKEND ?= ncurses
+INSTALL_DIR ?= $(HOME)/.local/bin
 
 # Set variables based on the chosen backend
 ifeq ($(BACKEND), sdl)
@@ -18,7 +19,6 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Wpedantic -std=gnu99 $(LIBS) -DBACKEND_SDL=$(BACKEND_SDL)
 SRCS = main.c arrayutils.c sorting.c $(RENDERER_SRC)
 OBJS = $(SRCS:.c=.o)
-INSTALL_DIR ?= $(HOME)/.local/bin
 EXEC = termsort
 
 .PHONY: all clean install uninstall

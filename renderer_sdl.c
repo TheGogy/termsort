@@ -1,5 +1,5 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_events.h>
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_events.h>
 #include <locale.h>
 #include <stdlib.h>
 #include <stdio.h>
