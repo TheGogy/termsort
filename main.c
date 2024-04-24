@@ -184,24 +184,24 @@ int main(int argc, char **argv){
   }
 
   renderSorted(arr);
-
-  // Display the results in the top left
-  WINDOW *results = newwin(7, 25, 0, 0);
-  wattron(results, A_BOLD);
-  mvwprintw(results, 1, 1, "%s", algorithms[algorithm]);
-  wattroff(results, A_BOLD);
-  mvwprintw(results, 2, 1, "Total elements:   %d\n", ws.cols);
-  mvwprintw(results, 3, 1, "Unique elements:  %d\n", ws.rows);
-  mvwprintw(results, 4, 1, "Array indexes:    %d\n", c.indexes);
-  mvwprintw(results, 5, 1, "Array moves:      %d\n", c.moves);
-  wattron(results, A_BOLD);
-  box(results, 0, 0);
-  wattroff(results, A_BOLD);
-  // move(ws.cols, ws.rows); // Move cursor to bottom right to be less distracting
-
-  wrefresh(results);
-
-  getch(); // Wait for user input before exiting
+  //
+  // // Display the results in the top left
+  // WINDOW *results = newwin(7, 25, 0, 0);
+  // wattron(results, A_BOLD);
+  // mvwprintw(results, 1, 1, "%s", algorithms[algorithm]);
+  // wattroff(results, A_BOLD);
+  // mvwprintw(results, 2, 1, "Total elements:   %d\n", ws.cols);
+  // mvwprintw(results, 3, 1, "Unique elements:  %d\n", ws.rows);
+  // mvwprintw(results, 4, 1, "Array indexes:    %d\n", c.indexes);
+  // mvwprintw(results, 5, 1, "Array moves:      %d\n", c.moves);
+  // wattron(results, A_BOLD);
+  // box(results, 0, 0);
+  // wattroff(results, A_BOLD);
+  // // move(ws.cols, ws.rows); // Move cursor to bottom right to be less distracting
+  //
+  // wrefresh(results);
+  //
+  // getch(); // Wait for user input before exiting
   handleExit(0);
   return EXIT_SUCCESS;
 }

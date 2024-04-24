@@ -59,7 +59,6 @@ void render(int arr[], int x, int y){
 }
 
 void renderSorted(int arr[]) {
-
   for (int i = 0; i < ws.cols; i++) {
     attron(COLOR_PAIR(2));
     mvvline(ws.rows - arr[i], i, ACS_BOARD, arr[i]);
