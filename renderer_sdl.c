@@ -1,5 +1,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_events.h>
+#include <SDL3/SDL_oldnames.h>
+#include <SDL3/SDL_render.h>
 #include <locale.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -70,19 +72,24 @@ void handleExit(int signum) {
 void render(int arr[], int x, int y){
   drawWindowWrapper(renderer, backgroundColor); // Black background
   SDL_RenderClear(renderer);
-  SDL_FRect bar;
+
+  SDL_FRect bars[WIDTH];
   for (int i = 0; i < WIDTH; i++) {
-    bar.x = i;
-    bar.y = HEIGHT - arr[i];
-    bar.w = 1;
-    bar.h = arr[i];
-    if (i == x || i == y){
-      drawWindowWrapper(renderer, swapColor);
-    } else {
-      drawWindowWrapper(renderer, barColor);
-    }
-    SDL_RenderFillRect(renderer, &bar);
+    bars[i].x = i;
+    bars[i].y = HEIGHT - arr[i];
+    bars[i].w = 1;
+    bars[i].h = arr[i];
   }
+
+  // Draw main bars
+  drawWindowWrapper(renderer, barColor);
+  SDL_RenderFillRects(renderer, bars, WIDTH);
+
+  // Draw highlighted bars
+  drawWindowWrapper(renderer, swapColor);
+  SDL_RenderFillRect(renderer, &bars[x]);
+  SDL_RenderFillRect(renderer, &bars[y]);
+
   SDL_RenderPresent(renderer);
   SDL_Delay(delay);
   while (SDL_PollEvent(&event) != 0) {
@@ -93,30 +100,42 @@ void render(int arr[], int x, int y){
 }
 
 void renderSorted(int arr[], char *results[], int results_len) {
+  SDL_FRect bars[WIDTH]; // Array to hold SDL_FRects for all bars
+
+  for (int i = 0; i < WIDTH; i++) {
+    bars[i].x = i;
+    bars[i].y = HEIGHT - arr[i];
+    bars[i].w = 1;
+    bars[i].h = arr[i];
+  }
+
+  // HACK: None of this is efficient but it flickers otherwise
+
   SDL_FRect bar;
   for (int i = 0; i < WIDTH; i++) {
+    // Clear background
     drawWindowWrapper(renderer, backgroundColor);
     SDL_RenderClear(renderer);
-    for (int j = 0; j < WIDTH; j++) {
-      bar.x = j;
-      bar.y = HEIGHT - arr[j];
-      bar.w = 1;
-      bar.h = arr[j];
-      if (i >= j){
-        drawWindowWrapper(renderer, finishColor);
-      } else {
-        drawWindowWrapper(renderer, barColor);
-      }
-      SDL_RenderFillRect(renderer, &bar);
-    }
+
+    // Draw all bars
+    drawWindowWrapper(renderer, barColor);
+    SDL_RenderFillRects(renderer, bars, WIDTH);
+    
+    // Draw finished bars (hack)
+    drawWindowWrapper(renderer, finishColor);
+    SDL_RenderFillRects(renderer, bars, i);
+
     SDL_RenderPresent(renderer);
     SDL_Delay(delay_finished);
+
     while (SDL_PollEvent(&event) != 0) {
       if (event.type == SDL_EVENT_QUIT) {
         handleExit(1);
       }
     }
   }
+
+  // Wait until user has pressed button to exit
   while(1) {
     while (SDL_PollEvent(&event) != 0) {
       if (event.type == SDL_EVENT_QUIT || event.type == SDL_EVENT_KEY_DOWN) {

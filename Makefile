@@ -5,7 +5,7 @@ INSTALL_DIR ?= $(HOME)/.local/bin
 # Set variables based on the chosen backend
 ifeq ($(BACKEND), sdl)
     RENDERER_SRC = renderer_sdl.c
-    LIBS = -lSDL2
+    LIBS = -lSDL3
 		BACKEND_SDL = 1
 else ifeq ($(BACKEND), ncurses)
     RENDERER_SRC = renderer_ncurses.c
